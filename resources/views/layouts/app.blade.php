@@ -68,8 +68,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
 
             <a href="{{ route('home') }}" class="flex flex-col items-center z-50">
-                <span class="font-heading font-black tracking-tighter text-xl sm:text-2xl text-opes-nav-blue">OPES</span>
-                <span class="font-heading font-bold tracking-widest text-[8px] sm:text-[9px] text-gray-500 -mt-1">Technologies</span>
+                <img src="{{ Vite::asset("resources/images/Opes-logo.png") }}" width="80" height="auto" />
             </a>
 
             <nav class="hidden md:flex items-center gap-6 lg:gap-8">
@@ -102,6 +101,17 @@
 
     <main class="w-full overflow-x-hidden">
         @yield('content')
+
+        @if(request()->routeIs('home'))
+            <div class="flex flex-col md:flex-row gap-4 mt-30">
+                <div class="flex-1 p-4 rounded">
+                    @include("partials.youtube-player")
+                </div>
+                <div class="flex-1 p-4 rounded">
+                    <img src="{{ Vite::asset("resources/images/banners/opes-home.png") }}" class="w-full h-auto" />
+                </div>
+            </div>
+        @endif
     </main>
 
     @include('partials.footer')
