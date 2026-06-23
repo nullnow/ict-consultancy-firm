@@ -34,7 +34,7 @@ class AuthApiController extends Controller
                 'id' => $user->id,
                 'username' => $user->username
             ],
-        ], 21);
+        ], 201);
     }
 
     /**
