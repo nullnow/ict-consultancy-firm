@@ -24,7 +24,7 @@
                     </div>
                     <div>
                         <h3 class="text-base text-white font-bold tracking-tight mb-1">{{ $srv->title }}</h3>
-                        <p class="text-xs text-dash-muted uppercase tracking-wider font-semibold">{{ $srv->features_count }} Active Feature Configurations</p>
+                        <p class="text-xs text-dash-muted uppercase tracking-wider font-semibold">{{ $srv->features_count }} Active Feature(s)</p>
                     </div>
                     <a href="{{ route('admin.services.edit', $srv->id) }}" class="w-full text-center text-xs font-bold uppercase tracking-wider py-2 bg-dash-bg border border-dash-accent-blue/30 text-dash-accent-blue-light rounded-sm hover:bg-dash-accent-blue hover:text-white transition-colors">
                         Modify Service Information

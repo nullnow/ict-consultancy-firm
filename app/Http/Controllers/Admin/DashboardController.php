@@ -26,7 +26,7 @@ class DashboardController extends Controller
     /**
      * Show the form for deploying a brand-new service architecture node.
      */
-    public function createService(): \Illuminate\View\View
+    public function createService(): View
     {
         return view('admin.dashboard.services_create');
     }
@@ -34,7 +34,7 @@ class DashboardController extends Controller
     /**
      * Store and compile a newly initialized service node into the ecosystem.
      */
-    public function storeService(Request $request): \Illuminate\Http\RedirectResponse
+    public function storeService(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'title'           => 'required|string|max:255',
@@ -120,7 +120,7 @@ class DashboardController extends Controller
     /**
      * Isolate and inspect a specific client conversion lead entry.
      */
-    public function showInquiry(DemoInquiry $inquiry): \Illuminate\View\View
+    public function showInquiry(DemoInquiry $inquiry): View
     {
         return view('admin.dashboard.inquiries_show', compact('inquiry'));
     }

@@ -10,7 +10,7 @@ use Illuminate\View\View;
 
 class AuthWebController extends Controller
 {
-    public function showLogin(): View
+    public function showLogin(): View|RedirectResponse
     {
         if (Auth::check()) {
             return redirect()->route('admin.dashboard');
