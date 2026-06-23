@@ -2,7 +2,7 @@
 
 ## How to Use the CMS
 
-Login is at `https://app.opes.co.tz/auth/login`. Username is `admin` and password is `opes+255!=@#`.
+Login is at `https://www.opes.co.tz/auth/login`. Username is `admin` and password is `opes+255!=@#`.
 
 Upon logging in, you will see the homepage with all the current page settings.
 
@@ -23,24 +23,24 @@ The dashboard is authentication protected and pages can not be visited without l
 ### 2. Core infrastructure
 
 - main.ts
-  - Configures Express middleware
-  - Enables `express-session` for user sessions
-  - Serves static assets from public
-  - Sets views as the template directory
-  - Starts the server on `PORT` or default `3000`
+    - Configures Express middleware
+    - Enables `express-session` for user sessions
+    - Serves static assets from public
+    - Sets views as the template directory
+    - Starts the server on `PORT` or default `3000`
 
 - app.module.ts
-  - Loads environment configuration via `@nestjs/config`
-  - Connects to MongoDB using `@nestjs/mongoose`
-  - Registers modules for:
-    - `Homepage`
-    - `Auth`
-    - `Admin`
-    - `Service Pages`
-    - `Demo Requests`
-    - `About`
-    - `FAQ`
-    - `Contact`
+    - Loads environment configuration via `@nestjs/config`
+    - Connects to MongoDB using `@nestjs/mongoose`
+    - Registers modules for:
+        - `Homepage`
+        - `Auth`
+        - `Admin`
+        - `Service Pages`
+        - `Demo Requests`
+        - `About`
+        - `FAQ`
+        - `Contact`
 
 ### 3. Data and persistence
 
@@ -48,25 +48,25 @@ The dashboard is authentication protected and pages can not be visited without l
 - ODM: **Mongoose**
 - Schemas are defined per feature under `src/**/schemas/`
 - Key data stores:
-  - homepage content
-  - about page content
-  - FAQ content
-  - service page content
-  - contact page content
-  - contact form submissions
-  - demo requests
-  - user accounts
+    - homepage content
+    - about page content
+    - FAQ content
+    - service page content
+    - contact page content
+    - contact form submissions
+    - demo requests
+    - user accounts
 
 ### 4. Admin and CMS behavior
 
 - Admin access is protected by middleware in auth.middleware.ts
 - The middleware checks `req.session.user` and redirects unauthenticated users to `/auth/login`
 - Admin routes are grouped around:
-  - `/admin`
-  - `/contact/admin/*`
-  - `/homepage/admin/*`
-  - `/faq/admin/*`
-  - `/service-pages/admin/*`
+    - `/admin`
+    - `/contact/admin/*`
+    - `/homepage/admin/*`
+    - `/faq/admin/*`
+    - `/service-pages/admin/*`
 - The admin interface is built in admin and other `*/admin-edit.ejs` templates.
 
 ### 5. Authentication
@@ -80,16 +80,16 @@ The dashboard is authentication protected and pages can not be visited without l
 
 - `ContactService` and `DemoRequestService` send notification emails via **Resend**
 - Contact form submissions:
-  - saved to MongoDB
-  - emailed to the admin address
+    - saved to MongoDB
+    - emailed to the admin address
 - Demo requests:
-  - saved to MongoDB
-  - emailed to the admin address
+    - saved to MongoDB
+    - emailed to the admin address
 - Env vars used for email:
-  - `RESEND_API_KEY`
-  - `ADMIN_EMAIL`
-  - `RESEND_FROM_EMAIL`
-  - `APP_URL` is used in demo request email links
+    - `RESEND_API_KEY`
+    - `ADMIN_EMAIL`
+    - `RESEND_FROM_EMAIL`
+    - `APP_URL` is used in demo request email links
 
 ### 7. Page / module coverage
 
@@ -108,8 +108,8 @@ The dashboard is authentication protected and pages can not be visited without l
 - Prod build: `pnpm run build`
 - Prod start: `pnpm run start:prod`
 - Testing:
-  - unit: `pnpm run test`
-  - e2e: `pnpm run test:e2e`
+    - unit: `pnpm run test`
+    - e2e: `pnpm run test:e2e`
 
 ### 9. Important environment variables
 
