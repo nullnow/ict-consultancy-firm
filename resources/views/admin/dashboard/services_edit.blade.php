@@ -4,13 +4,13 @@
 <div class="space-y-8">
 
     <div>
-        <a href="{{ route('admin.dashboard') }}" class="text-xs font-bold uppercase tracking-widest text-dash-accent-blue-light hover:underline"><i class="fa-solid fa-arrow-left mr-2"></i>Return to Operation Matrices</a>
+        <a href="{{ route('admin.dashboard') }}" class="text-xs font-bold uppercase tracking-widest text-dash-accent-blue-light hover:underline"><i class="fa-solid fa-arrow-left mr-2"></i>Return to Dashboard</a>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
         <div class="lg:col-span-6 bg-dash-surface p-8 rounded-xl space-y-6">
-            <h3 class="text-xl text-white">Modify Sector Platform Core Assets</h3>
+            <h3 class="text-xl text-white">Modify Service Information</h3>
 
             <form action="{{ route('admin.services.update', $service->id) }}" method="POST" class="space-y-6">
                 @csrf
@@ -43,7 +43,7 @@
                 </div>
 
                 <button type="submit" class="w-full py-4 bg-dash-accent-blue hover:bg-dash-accent-blue-light text-white text-sm font-bold uppercase tracking-wider rounded transition-colors">
-                    Recompile Node Core Configurations
+                    Save Service Information
                 </button>
             </form>
         </div>
@@ -51,7 +51,7 @@
         <div class="lg:col-span-6 space-y-6">
 
             <div class="bg-dash-surface p-8 rounded-xl">
-                <h3 class="text-xl text-white mb-6">Insert Dynamic Feature Focus Module</h3>
+                <h3 class="text-xl text-white mb-6">Insert Dynamic Feature Details</h3>
                 <form action="{{ route('admin.features.store', $service->id) }}" method="POST" class="space-y-4">
                     @csrf
                     <div class="grid grid-cols-3 gap-4">
@@ -69,13 +69,13 @@
                         <textarea name="description" rows="2" required class="w-full p-3 bg-dash-bg border border-white/10 rounded text-white text-xs focus:outline-none focus:border-dash-accent-blue-light"></textarea>
                     </div>
                     <button type="submit" class="w-full py-2 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold uppercase tracking-wider rounded transition-colors">
-                        Push Feature to Node Stack
+                        Add Feature Details
                     </button>
                 </form>
             </div>
 
             <div class="space-y-4">
-                <h4 class="text-xs uppercase tracking-widest text-dash-muted font-bold">Active Embedded Subsystem Features Output Index</h4>
+                <h4 class="text-xs uppercase tracking-widest text-dash-muted font-bold">Existing Features</h4>
 
                 @forelse($service->features as $feat)
                     <div class="bg-dash-surface/50 p-4 rounded-lg flex justify-between items-start gap-4">
