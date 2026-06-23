@@ -26,6 +26,9 @@ export default defineConfig({
                 "resources/images/opes-clientele/china-dasheng.png",
                 "resources/images/opes-clientele/anglo-Gold.png",
                 "resources/images/Opes-logo.png",
+                "resources/images/banners/opes-about.png",
+                "resources/images/banners/opes-home.png",
+                "resources/images/banners/opes-services.png",
             ],
             refresh: true,
             fonts: [
