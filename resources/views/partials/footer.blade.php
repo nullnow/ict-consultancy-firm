@@ -144,3 +144,42 @@
         </div>
     </div>
 </footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById("scroll-container");
+        const track = document.getElementById("scroll-track");
+
+        if (!container || !track) return;
+
+        // Clone the track content to create the seamless loop illusion
+        const clone = track.innerHTML;
+        track.insertAdjacentHTML('beforeend', clone);
+
+        let scrollLeft = 0;
+        const speed = 1; // Adjust speed (pixels per frame)
+        let isPaused = false;
+
+        function step() {
+            if (!isPaused) {
+                scrollLeft += speed;
+
+                // If we have scrolled past the original content width, reset to 0
+                // We divide by 2 because the track now contains the original + clone
+                if (scrollLeft >= track.scrollWidth / 2) {
+                    scrollLeft = 0;
+                }
+
+                container.scrollLeft = scrollLeft;
+            }
+            requestAnimationFrame(step);
+        }
+
+        // Optional: Pause on hover (matching your Tailwind 'group-hover' logic)
+        container.addEventListener("mouseenter", () => isPaused = true);
+        container.addEventListener("mouseleave", () => isPaused = false);
+
+        // Start the animation
+        requestAnimationFrame(step);
+    });
+</script>
