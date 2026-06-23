@@ -25,7 +25,7 @@
                             </div>
                         @endif
                         <div class="pt-4">
-                            <a href="{{ route('services.show', $srv->slug) }}" class="btn btn-secondary w-full sm:w-auto text-xs">Deep Dive System Analysis</a>
+                            <a href="{{ route('services.show', $srv->slug) }}" class="btn btn-secondary w-full sm:w-auto text-xs">Further Information</a>
                         </div>
                     </div>
                 @endforeach
