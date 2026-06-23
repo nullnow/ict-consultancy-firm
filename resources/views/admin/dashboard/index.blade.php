@@ -6,12 +6,12 @@
     <div>
         <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-                <h2 class="text-2xl text-white">Active System Engines & Components</h2>
-                <p class="text-xs text-dash-muted uppercase tracking-widest mt-1">Modify core marketing assets dynamically or append new architecture.</p>
+                <h2 class="text-2xl text-white">Individual Service Information & Features</h2>
+                <p class="text-xs text-dash-muted uppercase tracking-widest mt-1">Modify core marketing assets dynamically or add new items.</p>
             </div>
             <div>
                 <a href="{{ route('admin.services.create') }}" class="inline-flex items-center gap-2 px-4 py-3 bg-dash-accent-blue hover:bg-dash-accent-blue-light text-white font-heading font-bold text-xs uppercase tracking-wider rounded-sm transition-colors">
-                    <i class="fa-solid fa-plus text-[10px]"></i> Build Architecture Node
+                    <i class="fa-solid fa-plus text-[10px]"></i> Create Service
                 </a>
             </div>
         </div>
@@ -27,7 +27,7 @@
                         <p class="text-xs text-dash-muted uppercase tracking-wider font-semibold">{{ $srv->features_count }} Active Feature Configurations</p>
                     </div>
                     <a href="{{ route('admin.services.edit', $srv->id) }}" class="w-full text-center text-xs font-bold uppercase tracking-wider py-2 bg-dash-bg border border-dash-accent-blue/30 text-dash-accent-blue-light rounded-sm hover:bg-dash-accent-blue hover:text-white transition-colors">
-                        Modify Strategy Node
+                        Modify Service Information
                     </a>
                 </div>
             @endforeach
@@ -36,8 +36,8 @@
 
     <div>
         <div class="mb-6">
-            <h2 class="text-2xl text-white">Live Lead Generation Capture Log</h2>
-            <p class="text-xs text-dash-muted uppercase tracking-widest mt-1">Real-time incoming business validation, scheduling entries, and pipeline requests.</p>
+            <h2 class="text-2xl text-white">Live Lead Generation Entries</h2>
+            <p class="text-xs text-dash-muted uppercase tracking-widest mt-1">Real-time incoming lead generation entries and contact information.</p>
         </div>
 
         <div class="w-full overflow-x-auto bg-dash-surface rounded-xl">
@@ -50,6 +50,7 @@
                         <th class="p-4">Infrastructure Target</th>
                         <th class="p-4">Message Segment</th>
                         <th class="p-4 text-center">Pipeline Routing Status</th>
+                        <th class="p-4 text-center">View</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-white/5 text-sm">
@@ -83,10 +84,15 @@
                                     </select>
                                 </form>
                             </td>
+                            <td class="p-4 whitespace-nowrap text-center">
+                                <a href="{{ route('admin.inquiries.show', $inq->id) }}" title="Inspect Payload" class="inline-flex items-center justify-center w-8 h-8 rounded bg-dash-bg border border-white/10 text-dash-accent-blue-light hover:bg-dash-accent-blue hover:text-white transition-all">
+                                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                                </a>
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="p-12 text-center text-sm text-dash-muted">
+                            <td colspan="7" class="p-12 text-center text-sm text-dash-muted">
                                 No active customer conversion vectors captured in current logging arrays.
                             </td>
                         </tr>

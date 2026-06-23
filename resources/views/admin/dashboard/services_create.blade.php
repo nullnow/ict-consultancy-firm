@@ -6,15 +6,15 @@
     <!-- Navigation Back Anchor -->
     <div>
         <a href="{{ route('admin.dashboard') }}" class="text-xs font-bold uppercase tracking-widest text-dash-accent-blue-light hover:underline">
-            <i class="fa-solid fa-arrow-left mr-2"></i>Abort and Return to Console
+            <i class="fa-solid fa-arrow-left mr-2"></i>Return to Dashboard
         </a>
     </div>
 
     <!-- Wide Format Open Form Container -->
     <div class="bg-dash-surface p-8 rounded-xl space-y-6">
         <div>
-            <h2 class="text-2xl text-white">Initialize New Service Architecture</h2>
-            <p class="text-xs text-dash-muted uppercase tracking-widest mt-1">Deploy a new system sector. All fields integrate straight into front-end rendering arrays.</p>
+            <h2 class="text-2xl text-white">Add New Service</h2>
+            <p class="text-xs text-dash-muted uppercase tracking-widest mt-1">Create new service item. All fields populate front-end content directly.</p>
         </div>
 
         <form action="{{ route('admin.services.store') }}" method="POST" class="space-y-6">
@@ -61,7 +61,7 @@
 
             <div class="pt-4">
                 <button type="submit" class="w-full py-4 bg-gradient-to-r from-dash-accent-blue to-dash-accent-blue-light hover:opacity-90 text-white text-sm font-bold uppercase tracking-wider rounded transition-all shadow-md">
-                    Compile and Deploy Service Node
+                    Save Service Information
                 </button>
             </div>
         </form>
