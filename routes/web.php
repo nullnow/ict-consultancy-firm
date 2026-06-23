@@ -65,6 +65,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::post('/services/{service}/features', [DashboardController::class, 'storeFeature'])->name('features.store');
     Route::delete('/features/{feature}', [DashboardController::class, 'destroyFeature'])->name('features.destroy');
 
+    // Inbound Lead Pipelines Detailed View & Deep Inspection
+    Route::get('/inquiries/{inquiry}', [DashboardController::class, 'showInquiry'])->name('inquiries.show');
+    Route::put('/inquiries/{inquiry}/status', [DashboardController::class, 'updateInquiryStatus'])->name('inquiries.status');
+
     // Inbound Pipelines Execution Interceptors
     Route::put('/inquiries/{inquiry}/status', [DashboardController::class, 'updateInquiryStatus'])->name('inquiries.status');
 });

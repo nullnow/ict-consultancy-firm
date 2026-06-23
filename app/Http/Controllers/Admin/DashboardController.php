@@ -116,4 +116,12 @@ class DashboardController extends Controller
 
         return redirect()->back()->with('success', "Inquiry vector baseline status assigned to: {$validated['status']}.");
     }
+
+    /**
+     * Isolate and inspect a specific client conversion lead entry.
+     */
+    public function showInquiry(DemoInquiry $inquiry): \Illuminate\View\View
+    {
+        return view('admin.dashboard.inquiries_show', compact('inquiry'));
+    }
 }
