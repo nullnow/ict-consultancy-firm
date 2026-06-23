@@ -62,6 +62,8 @@
                     </div>
                 @endforelse
             </div>
+
+            @include("partials.trusted-by")
         </div>
     </section>
 @endsection
