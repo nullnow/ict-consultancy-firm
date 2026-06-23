@@ -69,16 +69,13 @@
             </a>
 
             <nav class="hidden md:flex items-center gap-8">
+                <a href="{{ route('home') }}" class="font-heading font-bold text-xs uppercase tracking-wider {{ Request::is('/') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">Home</a>
                 <a href="{{ route('services.index') }}" class="font-heading font-bold text-xs uppercase tracking-wider {{ Request::is('services') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">All Services</a>
                 <a href="{{ route('services.show', 'telematics') }}" class="font-heading font-bold text-xs uppercase tracking-wider {{ Request::is('services/telematics') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">Telematics</a>
                 <a href="{{ route('services.show', 'crm-erp') }}" class="font-heading font-bold text-xs uppercase tracking-wider {{ Request::is('services/crm-erp') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">CRM & ERP</a>
                 <a href="{{ route('services.show', 'bulk-sms') }}" class="font-heading font-bold text-xs uppercase tracking-wider {{ Request::is('services/bulk-sms') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">Bulk SMS</a>
                 <a href="{{ route('about') }}" class="font-heading font-bold text-xs uppercase tracking-wider {{ Request::is('about') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">About Us</a>
             </nav>
-
-            <div>
-                <a href="#contact-section" class="bg-opes-nav-blue hover:bg-opes-nav-blue-hover text-white font-heading font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-sm transition-colors">Talk to an Expert</a>
-            </div>
         </div>
     </header>
 
