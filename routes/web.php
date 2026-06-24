@@ -47,28 +47,28 @@ Route::group(['prefix' => 'admin'], function () {
 |
 */
 
-// Authenticated Structural Control Console Grouping
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
-
-    // Core Navigation Core Matrix
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    // Existing Dashboard Map Core
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Dynamic Content Architecture Creation Channels (Place BEFORE edit/update)
+    // Service Management Channels
     Route::get('/services/create', [DashboardController::class, 'createService'])->name('services.create');
     Route::post('/services', [DashboardController::class, 'storeService'])->name('services.store');
-
-    // Services Operational Matrix Editing Layers
     Route::get('/services/{service}/edit', [DashboardController::class, 'editService'])->name('services.edit');
     Route::put('/services/{service}', [DashboardController::class, 'updateService'])->name('services.update');
 
-    // Strategic Features Configuration Components
+    // Auxiliary Strategic Feature Additions
     Route::post('/services/{service}/features', [DashboardController::class, 'storeFeature'])->name('features.store');
     Route::delete('/features/{feature}', [DashboardController::class, 'destroyFeature'])->name('features.destroy');
 
-    // Inbound Lead Pipelines Detailed View & Deep Inspection
-    Route::get('/inquiries/{inquiry}', [DashboardController::class, 'showInquiry'])->name('inquiries.show');
-    Route::put('/inquiries/{inquiry}/status', [DashboardController::class, 'updateInquiryStatus'])->name('inquiries.status');
+    // Use Case ("Work") Execution Vectors
+    Route::get('/use-cases/create', [DashboardController::class, 'createUseCase'])->name('use_cases.create');
+    Route::post('/use-cases', [DashboardController::class, 'storeUseCase'])->name('use_cases.store');
+    Route::get('/use-cases/{useCase}/edit', [DashboardController::class, 'editUseCase'])->name('use_cases.edit');
+    Route::put('/use-cases/{useCase}', [DashboardController::class, 'updateUseCase'])->name('use_cases.update');
+    Route::delete('/use-cases/{useCase}', [DashboardController::class, 'destroyUseCase'])->name('use_cases.destroy');
 
-    // Inbound Pipelines Execution Interceptors
-    Route::put('/inquiries/{inquiry}/status', [DashboardController::class, 'updateInquiryStatus'])->name('inquiries.status');
+    // Lead Pipeline Tracking Vectors
+    Route::get('/inquiries/{inquiry}', [DashboardController::class, 'showInquiry'])->name('inquiries.show');
+    Route::patch('/inquiries/{inquiry}/status', [DashboardController::class, 'updateInquiryStatus'])->name('inquiries.update_status');
 });
