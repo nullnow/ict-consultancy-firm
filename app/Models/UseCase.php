@@ -7,21 +7,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UseCase extends Model
 {
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'service_id',
-        'title',
-        'example',
-        'sort_order'
-    ];
+    protected $fillable = ['service_id', 'title', 'items', 'icon_class', 'sort_order'];
 
     /**
-     * Get the service that owns this functional use case.
+     * The attributes that should be cast.
      */
+    protected $casts = [
+        'items' => 'array',
+    ];
+
     public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);
