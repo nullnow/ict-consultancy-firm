@@ -72,12 +72,35 @@
             </a>
 
             <nav class="hidden md:flex items-center gap-6 lg:gap-8">
-                <a href="{{ route('home') }}" class="font-heading font-bold text-xs uppercase tracking-wider {{ Request::is('/') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">Home</a>
-                <a href="{{ route('services.index') }}" class="font-heading font-bold text-xs uppercase tracking-wider {{ Request::is('services') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">All Services</a>
-                <a href="{{ route('services.show', 'telematics') }}" class="font-heading font-bold text-xs uppercase tracking-wider {{ Request::is('services/telematics') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">Telematics</a>
-                <a href="{{ route('services.show', 'crm-erp') }}" class="font-heading font-bold text-xs uppercase tracking-wider {{ Request::is('services/crm-erp') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">CRM & ERP</a>
-                <a href="{{ route('services.show', 'bulk-sms') }}" class="font-heading font-bold text-xs uppercase tracking-wider {{ Request::is('services/bulk-sms') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">Bulk SMS</a>
-                <a href="{{ route('about') }}" class="font-heading font-bold text-xs uppercase tracking-wider {{ Request::is('about') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">About Us</a>
+                <a href="{{ route('home') }}" class="font-heading font-bold text-md uppercase tracking-wider {{ Request::is('/') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">Home</a>
+
+                <div class="relative inline-block text-left">
+                    <details class="group [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex items-center gap-1 cursor-pointer font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services*') ? 'text-opes-orange' : 'text-opes-nav-blue' }} list-none">
+                            <span>All Services</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </summary>
+
+                        <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50 py-1">
+                            <a href="{{ route('services.index') }}" class="block px-4 py-2 font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
+                                Overview
+                            </a>
+                            <a href="{{ route('services.show', 'telematics') }}" class="block px-4 py-2 font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services/telematics') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
+                                Telematics
+                            </a>
+                            <a href="{{ route('services.show', 'crm-erp') }}" class="block px-4 py-2 font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services/crm-erp') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
+                                CRM & ERP
+                            </a>
+                            <a href="{{ route('services.show', 'bulk-sms') }}" class="block px-4 py-2 font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services/bulk-sms') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
+                                Bulk SMS
+                            </a>
+                        </div>
+                    </details>
+                </div>
+
+                <a href="{{ route('about') }}" class="font-heading font-bold text-md uppercase tracking-wider {{ Request::is('about') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">About Us</a>
             </nav>
 
             <button id="menu-toggle" class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5 z-50 relative focus:outline-none" aria-label="Toggle Menu">
@@ -90,10 +113,34 @@
         <div id="mobile-menu" class="fixed inset-0 bg-white z-40 flex flex-col justify-center items-center transition-all duration-300 translate-x-full md:hidden">
             <nav class="flex flex-col items-center gap-6 text-center px-6 w-full max-h-[75vh] overflow-y-auto">
                 <a href="{{ route('home') }}" class="font-heading font-bold text-base uppercase tracking-wider {{ Request::is('/') ? 'text-opes-orange' : 'text-opes-nav-blue' }}">Home</a>
-                <a href="{{ route('services.index') }}" class="font-heading font-bold text-base uppercase tracking-wider {{ Request::is('services') ? 'text-opes-orange' : 'text-opes-nav-blue' }}">All Services</a>
-                <a href="{{ route('services.show', 'telematics') }}" class="font-heading font-bold text-base uppercase tracking-wider {{ Request::is('services/telematics') ? 'text-opes-orange' : 'text-opes-nav-blue' }}">Telematics</a>
-                <a href="{{ route('services.show', 'crm-erp') }}" class="font-heading font-bold text-base uppercase tracking-wider {{ Request::is('services/crm-erp') ? 'text-opes-orange' : 'text-opes-nav-blue' }}">CRM & ERP</a>
-                <a href="{{ route('services.show', 'bulk-sms') }}" class="font-heading font-bold text-base uppercase tracking-wider {{ Request::is('services/bulk-sms') ? 'text-opes-orange' : 'text-opes-nav-blue' }}">Bulk SMS</a>
+                <div class="relative inline-block text-left">
+                <details class="group [&_summary::-webkit-details-marker]:hidden">
+                    <!-- Dropdown Trigger -->
+                    <summary class="flex items-center gap-1 cursor-pointer font-heading font-bold text-base uppercase tracking-wider {{ Request::is('services*') ? 'text-opes-orange' : 'text-opes-nav-blue' }} list-none">
+                        <span>All Services</span>
+                        <!-- Down Arrow Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+
+                    <!-- Dropdown Menu Options -->
+                    <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50 py-1">
+                        <a href="{{ route('services.index') }}" class="block px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
+                            Overview
+                        </a>
+                        <a href="{{ route('services.show', 'telematics') }}" class="block px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services/telematics') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
+                            Telematics
+                        </a>
+                        <a href="{{ route('services.show', 'crm-erp') }}" class="block px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services/crm-erp') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
+                            CRM & ERP
+                        </a>
+                        <a href="{{ route('services.show', 'bulk-sms') }}" class="block px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services/bulk-sms') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
+                            Bulk SMS
+                        </a>
+                    </div>
+                </details>
+            </div>
                 <a href="{{ route('about') }}" class="font-heading font-bold text-base uppercase tracking-wider {{ Request::is('about') ? 'text-opes-orange' : 'text-opes-nav-blue' }}">About Us</a>
             </nav>
         </div>
@@ -103,12 +150,21 @@
         @yield('content')
 
         @if(request()->routeIs('home'))
-            <div class="flex flex-col md:flex-row gap-4 mt-30">
-                <div class="flex-1 p-4 rounded">
-                    @include("partials.youtube-player")
+            <div class="flex flex-col md:flex-row gap-6 lg:gap-8 mt-12 md:mt-20 max-w-7xl mx-auto px-4">
+                <!-- Video Player Container -->
+                <div class="flex-1 bg-white p-5 md:p-6 rounded-2xl border border-slate-100 shadow-sm transition-all duration-300 hover:shadow-md">
+                    <div class="overflow-hidden rounded-xl">
+                        @include("partials.youtube-player")
+                    </div>
                 </div>
-                <div class="flex-1 p-4 rounded">
-                    <img src="{{ Vite::asset("resources/images/banners/opes-home.png") }}" class="w-full h-auto" />
+
+                <!-- Banner Image Container -->
+                <div class="flex-1 bg-white p-5 md:p-6 rounded-2xl border border-slate-100 shadow-sm transition-all duration-300 hover:shadow-md">
+                    <div class="overflow-hidden rounded-xl bg-slate-50 flex items-center justify-center h-full">
+                        <img src="{{ Vite::asset("resources/images/banners/opes-home.png") }}"
+                            alt="Opes Home Banner"
+                            class="w-full h-auto object-cover tracking-wide transition-transform duration-500 hover:scale-[1.02]" />
+                    </div>
                 </div>
             </div>
         @endif
