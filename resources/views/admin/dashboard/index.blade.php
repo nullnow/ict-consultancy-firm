@@ -11,7 +11,7 @@
             </div>
             <div>
                 <a href="{{ route('admin.services.create') }}" class="inline-flex items-center gap-2 px-4 py-3 bg-dash-accent-blue hover:bg-dash-accent-blue-light text-white font-heading font-bold text-xs uppercase tracking-wider rounded transition-colors shadow-md">
-                    <i class="fa-solid fa-plus text-[10px]"></i> Create Service Architecture
+                    <i class="fa-solid fa-plus text-[10px]"></i> Create New Service
                 </a>
             </div>
         </div>

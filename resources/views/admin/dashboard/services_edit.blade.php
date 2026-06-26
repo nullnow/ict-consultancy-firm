@@ -73,9 +73,9 @@
 
                 <div class="space-y-3 pt-2">
                     <div class="flex items-center justify-between">
-                        <label class="block text-xs uppercase tracking-wider text-dash-muted font-bold">Dynamic Solutions Array Schema</label>
+                        <label class="block text-xs uppercase tracking-wider text-dash-muted font-bold">Service Solutions Information</label>
                         <button type="button" id="add-solution-row" class="text-[10px] text-cyan-400 hover:text-cyan-300 font-bold uppercase tracking-wider flex items-center gap-1 transition-colors">
-                            <i class="fa-solid fa-plus"></i> Add Solution Object
+                            <i class="fa-solid fa-plus"></i> Add Solution Details
                         </button>
                     </div>
 
@@ -111,7 +111,7 @@
                         @error('call_to_action') <p class="text-red-400 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
                     <div>
-                        <label class="block text-xs uppercase tracking-wider text-dash-muted font-bold mb-2">Core System Closing Line</label>
+                        <label class="block text-xs uppercase tracking-wider text-dash-muted font-bold mb-2">Core Service Closing Line</label>
                         <input type="text" name="closing_line" value="{{ old('closing_line', $service->closing_line) }}" class="w-full p-4 bg-dash-bg border border-white/10 rounded text-white text-sm focus:outline-none focus:border-dash-accent-blue-light">
                         @error('closing_line') <p class="text-red-400 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
@@ -127,7 +127,7 @@
 
             <div class="space-y-6">
                 <div class="bg-dash-surface p-8 rounded-xl">
-                    <h3 class="text-xl text-white mb-6 font-bold tracking-tight">Add Feature Details Matrix</h3>
+                    <h3 class="text-xl text-white mb-6 font-bold tracking-tight">Add Feature Information Details</h3>
 
                     <form action="{{ route('admin.features.store', $service->id) }}" method="POST" class="space-y-4">
                         @csrf
@@ -175,7 +175,7 @@
 
                         <input type="hidden" name="submit_type" value="feature">
                         <button type="submit" class="w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold uppercase tracking-wider rounded transition-colors tracking-widest">
-                            Commit New Feature Block Matrix
+                            Commit New Feature Details
                         </button>
                     </form>
                 </div>

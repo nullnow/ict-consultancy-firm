@@ -35,6 +35,6 @@ class Service extends Model
      */
     public function features(): HasMany
     {
-        return $this->hasMany(Feature::class)->orderBy('sort_order');
+        return $this->hasMany(Feature::class, 'service_slug', 'slug')->orderBy('sort_order');
     }
 }
