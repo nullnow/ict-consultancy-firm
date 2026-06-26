@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'OPES Technologies | Simplify your business')</title>
+    <title>@yield('title', 'OPES Technologies | Simplify Your Business')</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,12 +67,10 @@
     <header class="fixed top-0 left-0 w-full z-50 bg-white shadow-md transition-all duration-300 py-3 sm:py-4">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
 
-            <!-- Logo Anchor -->
             <a href="{{ route('home') }}" class="flex flex-col items-center z-50">
                 <img src="{{ Vite::asset('resources/images/Opes-logo.png') }}" width="80" height="auto" alt="OPES Logo" />
             </a>
 
-            <!-- Desktop Navigation Matrix -->
             <nav class="hidden md:flex items-center gap-6 lg:gap-8">
                 <a href="{{ route('home') }}" class="font-heading font-bold text-md uppercase tracking-wider {{ Request::is('/') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">Home</a>
 
@@ -92,7 +90,6 @@
 
                             <div class="border-t border-gray-100 my-1"></div>
 
-                            <!-- Dynamic Dropdown Population Strategy -->
                             @if(isset($services) && $services->isNotEmpty())
                                 @foreach($services as $navSrv)
                                     @if(Route::has('services.' . $navSrv->slug))
@@ -102,7 +99,6 @@
                                     @endif
                                 @endforeach
                             @else
-                                <!-- Resilient Fallback to core nodes via explicitly generated route names -->
                                 @foreach(['telematics' => 'Telematics', 'bulk-sms-email' => 'Bulk SMS & Email', 'custom-crm' => 'Custom CRM', 'custom-erp' => 'Custom ERP'] as $slug => $label)
                                     @if(Route::has('services.' . $slug))
                                         <a href="{{ route('services.' . $slug) }}" class="block px-4 py-2 font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services/' . $slug) ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
@@ -118,7 +114,6 @@
                 <a href="{{ route('about') }}" class="font-heading font-bold text-md uppercase tracking-wider {{ Request::is('about') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">About Us</a>
             </nav>
 
-            <!-- Mobile Trigger Utility Button -->
             <button id="menu-toggle" class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5 z-50 relative focus:outline-none" aria-label="Toggle Menu">
                 <span id="line-1" class="w-6 h-0.5 bg-opes-nav-blue transition-all duration-300 transform origin-center"></span>
                 <span id="line-2" class="w-6 h-0.5 bg-opes-nav-blue transition-all duration-300"></span>
@@ -126,7 +121,6 @@
             </button>
         </div>
 
-        <!-- Mobile Navigation Drawer -->
         <div id="mobile-menu" class="fixed inset-0 bg-white z-40 flex flex-col justify-center items-center transition-all duration-300 translate-x-full md:hidden">
             <nav class="flex flex-col items-center gap-6 text-center px-6 w-full max-h-[75vh] overflow-y-auto">
                 <a href="{{ route('home') }}" class="font-heading font-bold text-base uppercase tracking-wider {{ Request::is('/') ? 'text-opes-orange' : 'text-opes-nav-blue' }}">Home</a>
@@ -176,14 +170,12 @@
 
         @if(request()->routeIs('home'))
             <div class="flex flex-col md:flex-row gap-6 lg:gap-8 mt-12 md:mt-20 max-w-7xl mx-auto px-4">
-                <!-- Video Player Container -->
                 <div class="flex-1 bg-white p-5 md:p-6 rounded-2xl border border-slate-100 shadow-sm transition-all duration-300 hover:shadow-md">
                     <div class="overflow-hidden rounded-xl">
                         @include("partials.youtube-player")
                     </div>
                 </div>
 
-                <!-- Banner Image Container -->
                 <div class="flex-1 bg-white p-5 md:p-6 rounded-2xl border border-slate-100 shadow-sm transition-all duration-300 hover:shadow-md">
                     <div class="overflow-hidden rounded-xl bg-slate-50 flex items-center justify-center h-full">
                         <img src="{{ Vite::asset("resources/images/banners/opes-home.png") }}"
@@ -196,6 +188,27 @@
     </main>
 
     @include('partials.footer')
+
+    <div id="exit-intent-modal" class="hidden fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300">
+        <div class="glass-card max-w-md w-full relative border border-opes-orange/30 shadow-2xl text-center flex flex-col items-center">
+            <button id="close-exit-modal" class="absolute top-4 right-4 text-opes-text-gray hover:text-opes-orange transition-colors duration-200" aria-label="Close Modal">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <div class="icon-wrapper">
+                <i class="fa-solid fa-rocket animate-bounce"></i>
+            </div>
+
+            <h3 class="text-gradient mb-3 text-lg sm:text-xl md:text-2xl">Wait! Don't Miss Out</h3>
+            <p class="text-opes-text-gray text-sm mb-6 max-w-xs">
+                Let's simplify your business together. Get a customized operational strategy blueprints from our engineers today.
+            </p>
+
+            <a href="{{ route('home') }}#contact" id="exit-modal-cta" class="btn btn-primary w-full sm:w-full">
+                Book a Free Consultation
+            </a>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -279,6 +292,51 @@
                 }
                 initCanvas(); animate();
                 window.addEventListener('resize', initCanvas);
+            }
+
+            // ==================== EXIT INTENT LOGIC ====================
+            const exitModal = document.getElementById('exit-intent-modal');
+            const closeExitModalBtn = document.getElementById('close-exit-modal');
+            const exitCta = document.getElementById('exit-modal-cta');
+
+            if (exitModal) {
+                // Look for exit-intent flag within Session Storage context
+                const hasTriggered = sessionStorage.getItem('opes_exit_intent_triggered');
+
+                const showModal = () => {
+                    exitModal.classList.remove('hidden');
+                    sessionStorage.setItem('opes_exit_intent_triggered', 'true');
+                };
+
+                const hideModal = () => {
+                    exitModal.classList.add('hidden');
+                };
+
+                // Track cursor crossing the upper threshold (tab/address bar area)
+                if (!hasTriggered) {
+                    document.addEventListener('mouseleave', (event) => {
+                        if (event.clientY < 20) {
+                            showModal();
+                        }
+                    });
+                }
+
+                // Interactive close states
+                if (closeExitModalBtn) {
+                    closeExitModalBtn.addEventListener('click', hideModal);
+                }
+
+                // Close modal if user clicks outside the glass container card
+                exitModal.addEventListener('click', (event) => {
+                    if (event.target === exitModal) {
+                        hideModal();
+                    }
+                });
+
+                // Auto-close modal layout framework if CTA link anchor is fired
+                if (exitCta) {
+                    exitCta.addEventListener('click', hideModal);
+                }
             }
         });
     </script>
