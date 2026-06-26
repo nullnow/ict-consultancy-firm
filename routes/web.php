@@ -61,13 +61,6 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::post('/services/{service}/features', [DashboardController::class, 'storeFeature'])->name('features.store');
     Route::delete('/features/{feature}', [DashboardController::class, 'destroyFeature'])->name('features.destroy');
 
-    // Use Case ("Work") Execution Vectors
-    Route::get('/use-cases/create', [DashboardController::class, 'createUseCase'])->name('use_cases.create');
-    Route::post('/use-cases', [DashboardController::class, 'storeUseCase'])->name('use_cases.store');
-    Route::get('/use-cases/{useCase}/edit', [DashboardController::class, 'editUseCase'])->name('use_cases.edit');
-    Route::put('/use-cases/{useCase}', [DashboardController::class, 'updateUseCase'])->name('use_cases.update');
-    Route::delete('/use-cases/{useCase}', [DashboardController::class, 'destroyUseCase'])->name('use_cases.destroy');
-
     // Lead Pipeline Tracking Vectors
     Route::get('/inquiries/{inquiry}', [DashboardController::class, 'showInquiry'])->name('inquiries.show');
     Route::patch('/inquiries/{inquiry}/status', [DashboardController::class, 'updateInquiryStatus'])->name('inquiries.update_status');

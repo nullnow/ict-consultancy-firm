@@ -137,86 +137,6 @@
                 </div>
             </div>
 
-            <!-- Subsystem Block B: Functional Operational Use Cases -->
-            <div class="space-y-6">
-                <div class="bg-dash-surface p-8 rounded-xl">
-                    <h3 class="text-xl text-white mb-6 font-bold tracking-tight">Add Use Case Details</h3>
-                    <form action="{{ route('admin.use_cases.store', $service->id) }}" method="POST" class="space-y-4">
-                        @csrf
-                        <div class="grid grid-cols-3 gap-4">
-                            <div class="col-span-2">
-                                <label class="block text-xs uppercase text-dash-muted font-bold mb-1">Use Case Title</label>
-                                <input type="text" name="title" required placeholder="e.g., Cold Chain Logistics Optimization" class="w-full p-3 bg-dash-bg border border-white/10 rounded text-white text-xs focus:outline-none focus:border-dash-accent-blue-light">
-                            </div>
-                            <div>
-                                <label class="block text-xs uppercase text-dash-muted font-bold mb-1">Sorting Rank</label>
-                                <input type="number" name="sort_order" value="0" required class="w-full p-3 bg-dash-bg border border-white/10 rounded text-white text-xs focus:outline-none focus:border-dash-accent-blue-light">
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label class="block text-xs uppercase text-dash-muted font-bold mb-1">Target Use Case Elements</label>
-                            <div id="use-case-items-wrapper" class="space-y-2">
-                                @if(old('items') && request()->submit_type === 'use_case')
-                                    @foreach(old('items') as $index => $oldItem)
-                                        <div class="flex gap-2 items-center">
-                                            <input type="text" name="items[]" value="{{ $oldItem }}" required class="w-full p-3 bg-dash-bg border border-white/10 rounded text-white text-xs focus:outline-none focus:border-dash-accent-blue-light">
-                                            <button type="button" onclick="this.parentElement.remove()" class="{{ $loop->first ? 'text-transparent pointer-events-none' : 'text-red-500 hover:text-red-400' }} p-2 text-xs transition-colors">
-                                                <i class="fa-solid fa-xmark"></i>
-                                            </button>
-                                        </div>
-                                    @endforeach
-                                @else
-                                    <div class="flex gap-2 items-center">
-                                        <input type="text" name="items[]" required placeholder="e.g., Pharmaceutical temperature tracking compliance" class="w-full p-3 bg-dash-bg border border-white/10 rounded text-white text-xs focus:outline-none focus:border-dash-accent-blue-light">
-                                        <button type="button" class="text-transparent p-2 text-xs cursor-default pointer-events-none">
-                                            <i class="fa-solid fa-xmark"></i>
-                                        </button>
-                                    </div>
-                                @endif
-                            </div>
-                            <button type="button" id="add-use-case-row" class="mt-2 text-[10px] text-cyan-400 hover:text-cyan-300 font-bold uppercase tracking-wider flex items-center gap-1 transition-colors">
-                                <i class="fa-solid fa-plus"></i> Add Use Case Item
-                            </button>
-                        </div>
-
-                        <input type="hidden" name="submit_type" value="use_case">
-                        <button type="submit" class="w-full py-2 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold uppercase tracking-wider rounded transition-colors">
-                            Add Use Case Details
-                        </button>
-                    </form>
-                </div>
-
-                <div class="space-y-3">
-                    <h4 class="text-xs uppercase tracking-widest text-dash-muted font-bold">Existing Core Use Cases Matrix</h4>
-                    @forelse($service->useCases->sortBy('sort_order') as $uc)
-                        <div class="bg-dash-surface/50 p-4 rounded-lg flex justify-between items-start gap-4 border border-white/5">
-                            <div class="space-y-2 pb-1">
-                                <div class="flex items-center gap-2">
-                                    <span class="px-2 py-0.5 bg-black/40 text-[10px] font-mono text-cyan-400 font-bold rounded">Pos: {{ $uc->sort_order }}</span>
-                                    <h5 class="text-sm font-bold text-white uppercase">{{ $uc->title }}</h5>
-                                </div>
-
-                                <ul class="list-disc list-inside text-xs text-dash-muted space-y-1 pl-1 leading-relaxed">
-                                    @foreach($uc->items ?? [] as $item)
-                                        <li>{{ $item }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <form action="{{ route('admin.use_cases.destroy', $uc->id) }}" method="POST" onsubmit="return confirm('Confirm removal of this active use case element?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="text-red-500 hover:text-red-400 p-2 text-xs transition-colors">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </button>
-                            </form>
-                        </div>
-                    @empty
-                        <p class="text-xs text-dash-muted italic pl-1">No operational use cases registered for this architecture tier.</p>
-                    @endforelse
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
@@ -231,20 +151,6 @@
             newRow.className = 'flex gap-2 items-center';
             newRow.innerHTML = `
                 <input type="text" name="items[]" required placeholder="Next subsystem item capability..." class="w-full p-3 bg-dash-bg border border-white/10 rounded text-white text-xs focus:outline-none focus:border-dash-accent-blue-light">
-                <button type="button" onclick="this.parentElement.remove()" class="text-red-500 hover:text-red-400 p-2 text-xs transition-colors">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            `;
-            wrapper.appendChild(newRow);
-        });
-
-        // Use Case Rows Creator
-        document.getElementById('add-use-case-row').addEventListener('click', function () {
-            const wrapper = document.getElementById('use-case-items-wrapper');
-            const newRow = document.createElement('div');
-            newRow.className = 'flex gap-2 items-center';
-            newRow.innerHTML = `
-                <input type="text" name="items[]" required placeholder="Next deployment objective or application..." class="w-full p-3 bg-dash-bg border border-white/10 rounded text-white text-xs focus:outline-none focus:border-dash-accent-blue-light">
                 <button type="button" onclick="this.parentElement.remove()" class="text-red-500 hover:text-red-400 p-2 text-xs transition-colors">
                     <i class="fa-solid fa-xmark"></i>
                 </button>

@@ -19,7 +19,6 @@ class DashboardController extends Controller
     public function index(): View
     {
         $services = Service::withCount('features')->get();
-        $useCases = UseCase::with('service')->orderBy('created_at', 'desc')->get();
         $inquiries = DemoInquiry::orderBy('created_at', 'desc')->paginate(15);
 
         return view('admin.dashboard.index', compact('services', 'useCases', 'inquiries'));
@@ -104,80 +103,6 @@ class DashboardController extends Controller
     {
         $feature->delete();
         return redirect()->back()->with('success', 'Content entity purged from execution indices.');
-    }
-
-    /**
-     * Show the form for deploying a brand-new strategic use case metric.
-     */
-    public function createUseCase(): View
-    {
-        $services = Service::all();
-        return view('admin.dashboard.use_cases_create', compact('services'));
-    }
-
-    /**
-     * Store and compile a newly initialized use case blueprint into the active data stack.
-     */
-    public function storeUseCase(Request $request): RedirectResponse
-    {
-        $validated = $request->validate([
-            'service_id'   => 'required|exists:services,id',
-            'title'        => 'required|string|max:255',
-            'slug'         => 'required|string|max:255|unique:use_cases,slug|alpha_dash',
-            'client_name'  => 'required|string|max:255',
-            'industry'     => 'required|string|max:255',
-            'challenge'    => 'required|string',
-            'solution'     => 'required|string',
-            'metrics_won'  => 'nullable|string|max:255', // e.g., "Cut fuel costs by 25%"
-            'is_published' => 'boolean'
-        ]);
-
-        $useCase = UseCase::create($validated);
-
-        return redirect()->route('admin.dashboard')->with('success', "Strategic profile [{$useCase->title}] written into core execution logs.");
-    }
-
-    /**
-     * Display editing parameters for modifying a specific deployment profile.
-     */
-    public function editUseCase(UseCase $useCase): View
-    {
-        $services = Service::all();
-        return view('admin.dashboard.use_cases_edit', compact('useCase', 'services'));
-    }
-
-    /**
-     * Update parameter sets for a targeted operational ecosystem track.
-     */
-    public function updateUseCase(Request $request, UseCase $useCase): RedirectResponse
-    {
-        $validated = $request->validate([
-            'service_id'   => 'required|exists:services,id',
-            'title'        => 'required|string|max:255',
-            'slug'         => "required|string|max:255|alpha_dash|unique:use_cases,slug,{$useCase->id}",
-            'client_name'  => 'required|string|max:255',
-            'industry'     => 'required|string|max:255',
-            'challenge'    => 'required|string',
-            'solution'     => 'required|string',
-            'metrics_won'  => 'nullable|string|max:255',
-            'is_published' => 'boolean'
-        ]);
-
-        // Handle default state check for unchecked checkboxes
-        $validated['is_published'] = $request->has('is_published');
-
-        $useCase->update($validated);
-
-        return redirect()->route('admin.dashboard')->with('success', "Operational profile [{$useCase->title}] updated and re-cached successfully.");
-    }
-
-    /**
-     * Terminate an explicit functional profile entirely from data engine availability.
-     */
-    public function destroyUseCase(UseCase $useCase): RedirectResponse
-    {
-        $useCase->delete();
-        return redirect()->route('admin.dashboard')->with('success', 'Target entity terminated from active runtime matrices.');
     }
 
     /**

@@ -18,9 +18,4 @@ class Service extends Model
     {
         return $this->hasMany(Industry::class);
     }
-
-    public function useCases(): HasMany
-    {
-        return $this->hasMany(UseCase::class);
-    }
 }
