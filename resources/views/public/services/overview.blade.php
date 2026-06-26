@@ -43,7 +43,7 @@
                             Clients typically cut fuel costs by 20–30% within the first year.
                         </div>
                         <div class="pt-4">
-                            <a href="{{ route('services.show', 'telematics') }}" class="btn btn-secondary w-full sm:w-auto text-xs py-3 px-6 uppercase font-bold tracking-wider">Further Information</a>
+                            <a href="{{ Route::has('services.telematics') ? route('services.telematics') : route('services.index') }}" class="btn btn-secondary w-full sm:w-auto text-xs py-3 px-6 uppercase font-bold tracking-wider">Further Information</a>
                         </div>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                             Millions of messages delivered monthly at a fraction of call-centre cost.
                         </div>
                         <div class="pt-4">
-                            <a href="{{ route('services.show', 'bulk-sms-email') }}" class="btn btn-secondary w-full sm:w-auto text-xs py-3 px-6 uppercase font-bold tracking-wider">Further Information</a>
+                            <a href="{{ Route::has('services.bulk-sms-email') ? route('services.bulk-sms-email') : route('services.index') }}" class="btn btn-secondary w-full sm:w-auto text-xs py-3 px-6 uppercase font-bold tracking-wider">Further Information</a>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                             Faster response times and higher conversion — without adding headcount.
                         </div>
                         <div class="pt-4">
-                            <a href="{{ route('services.show', 'custom-crm') }}" class="btn btn-secondary w-full sm:w-auto text-xs py-3 px-6 uppercase font-bold tracking-wider">Further Information</a>
+                            <a href="{{ Route::has('services.custom-crm') ? route('services.custom-crm') : route('services.index') }}" class="btn btn-secondary w-full sm:w-auto text-xs py-3 px-6 uppercase font-bold tracking-wider">Further Information</a>
                         </div>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
                             Real-time visibility from the boardroom to the warehouse floor — no month-end surprises.
                         </div>
                         <div class="pt-4">
-                            <a href="{{ route('services.show', 'custom-erp') }}" class="btn btn-secondary w-full sm:w-auto text-xs py-3 px-6 uppercase font-bold tracking-wider">Further Information</a>
+                            <a href="{{ Route::has('services.custom-erp') ? route('services.custom-erp') : route('services.index') }}" class="btn btn-secondary w-full sm:w-auto text-xs py-3 px-6 uppercase font-bold tracking-wider">Further Information</a>
                         </div>
                     </div>
                 </div>
@@ -155,7 +155,7 @@
             <!-- Dynamic Services Addendum Matrix -->
             @if(isset($services) && $services->isNotEmpty())
                 @php
-                    // Filter out core items to prevent layout redundancy
+                    // Filter out core items cleanly using explicit unique slug maps
                     $staticSlugs = ['telematics', 'bulk-sms-email', 'custom-crm', 'custom-erp'];
                     $dynamicServices = $services->filter(fn($s) => !in_array($s->slug, $staticSlugs));
                 @endphp
@@ -163,36 +163,47 @@
                 @if($dynamicServices->isNotEmpty())
                     <div class="mt-24 text-left border-t border-white/10 pt-16 space-y-10">
                         <div>
-                            <h2 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Our Services</h2>
-                            <p class="text-sm md:text-base text-opes-text-gray/70 font-light mt-1">Explore our telematics, operational and communications ecosystem.</p>
+                            <h2 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Our Extended Infrastructure Ecosystem</h2>
+                            <p class="text-sm md:text-base text-opes-text-gray/70 font-light mt-1">Explore custom telematics variations, specialized execution engines, and tactical software architectures.</p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                             @foreach($dynamicServices as $srv)
                                 <div class="glass-card flex flex-col justify-between h-full p-8 bg-opes-navy/10 border border-white/5 rounded-2xl backdrop-blur-sm">
                                     <div>
-                                        <div class="text-3xl text-opes-cyan mb-5">
-                                            <i class="{{ $srv->icon_class ?? 'fa-solid fa-gears' }}"></i>
+                                        <div class="flex items-center justify-between mb-5">
+                                            <div class="text-3xl text-opes-cyan">
+                                                <i class="{{ $srv->icon_class ?? 'fa-solid fa-gears' }}"></i>
+                                            </div>
+                                            @if($srv->headline)
+                                                <span class="text-[10px] font-mono uppercase tracking-widest text-opes-cyan/60 bg-black/30 px-2.5 py-0.5 rounded border border-white/5">
+                                                    {{ $srv->headline }}
+                                                </span>
+                                            @endif
                                         </div>
+
                                         <h4 class="text-lg font-bold text-white uppercase tracking-wide mb-2">{{ $srv->title }}</h4>
 
-                                        @if($srv->subtitle)
-                                            <p class="text-opes-cyan/90 text-xs italic mb-4 font-light leading-relaxed">{{ $srv->subtitle }}</p>
+                                        @if($srv->strapline)
+                                            <p class="text-opes-cyan/90 text-xs italic mb-4 font-light leading-relaxed">"{{ $srv->strapline }}"</p>
                                         @endif
 
-                                        @if($srv->intro_text)
-                                            <p class="text-opes-text-gray text-xs md:text-sm leading-relaxed mb-6 font-light">{{ Str::limit($srv->intro_text, 160) }}</p>
+                                        @if($srv->message)
+                                            <p class="text-opes-text-gray text-xs md:text-sm leading-relaxed mb-6 font-light">
+                                                {{ Str::limit($srv->message, 160) }}
+                                            </p>
                                         @endif
                                     </div>
 
                                     <div>
                                         @if($srv->results_summary)
-                                            <div class="p-3 bg-white/5 border-l border-opes-cyan text-[11px] text-opes-text-gray mb-5 rounded-r-md">
+                                            <div class="p-3 bg-white/5 border-l border-opes-cyan text-[11px] text-opes-text-gray mb-5 rounded-r-md font-medium">
+                                                <span class="block text-[9px] uppercase font-bold text-opes-cyan tracking-widest mb-0.5">Target Metric</span>
                                                 {{ $srv->results_summary }}
                                             </div>
                                         @endif
                                         <div class="pt-2">
-                                            <a href="{{ route('services.show', $srv->slug) }}" class="text-xs text-white font-bold tracking-wider uppercase border-b border-opes-cyan/40 pb-1 hover:text-opes-cyan hover:border-opes-cyan transition-all">
+                                            <a href="{{ Route::has('services.' . $srv->slug) ? route('services.' . $srv->slug) : route('services.index') }}" class="text-xs text-white font-bold tracking-wider uppercase border-b border-opes-cyan/40 pb-1 hover:text-opes-cyan hover:border-opes-cyan transition-all">
                                                 Explore Specifications →
                                             </a>
                                         </div>
