@@ -28,15 +28,13 @@ class PageController extends Controller
             "resources/images/opes-clientele/anglo-Gold.png"
         ];
 
-        // Fetch "Why OPES" global features (where service_id is null)
-        $differentiators = Feature::whereNull('service_id')
-            ->orderBy('sort_order')
+        // Fetch "Why OPES" global features (ordered by sort_order)
+        $differentiators = Feature::orderBy('sort_order')
             ->take(4)
             ->get();
 
         // YouTube player ID input
         $extractedId = null;
-
         $youtubeLink = "https://youtu.be/mdnF9R-Bzpg?si=4kwSQKJj0QA1PnBg";
 
         if ($youtubeLink) {
@@ -48,7 +46,11 @@ class PageController extends Controller
         // Generate a unique ID per instance so multiple players can live on the same page
         $uniquePlayerId = 'yt_player_' . Str::random(9);
 
-        return view('public.index', compact('differentiators'))->with("clientele", $clientele)->with("uniquePlayerId", $uniquePlayerId)->with("youtubeLink", $youtubeLink)->with("extractedId", $extractedId);
+        return view('public.index', compact('differentiators'))
+            ->with("clientele", $clientele)
+            ->with("uniquePlayerId", $uniquePlayerId)
+            ->with("youtubeLink", $youtubeLink)
+            ->with("extractedId", $extractedId);
     }
 
     /**

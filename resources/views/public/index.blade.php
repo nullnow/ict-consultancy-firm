@@ -15,7 +15,7 @@
             </p>
             <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
                 <a href="#contact-section" class="btn btn-primary w-full sm:w-auto">Book a Demo</a>
-                <a href="https://wa.me/your-number" class="btn btn-secondary w-full sm:w-auto">Chat With Us</a>
+                <a href="https://wa.me/255798888997" class="btn btn-secondary w-full sm:w-auto">Chat With Us</a>
             </div>
         </div>
     </section>
