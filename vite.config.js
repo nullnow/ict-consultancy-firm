@@ -29,6 +29,9 @@ export default defineConfig({
                 "resources/images/banners/opes-about.png",
                 "resources/images/banners/opes-home.png",
                 "resources/images/banners/opes-services.png",
+                "resources/brochures/Custom-CRM-&-ERP-Solutions.pdf",
+                "resources/brochures/Customer-Engagement-·-Bulk-SMS,-Email-&-AI-Chatbot.pdf",
+                "resources/brochures/Telematics-&-Fleet-Management-Services.pdf",
             ],
             refresh: true,
             fonts: [
