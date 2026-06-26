@@ -6,10 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\Feature;
 use App\Models\DemoInquiry;
-use App\Models\UseCase;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Schema;
 
 class DashboardController extends Controller
 {
@@ -18,10 +18,14 @@ class DashboardController extends Controller
      */
     public function index(): View
     {
-        $services = Service::withCount('features')->get();
+        // Cleanly verify table availability without masking code bugs
+        $services = Schema::hasTable('services')
+            ? Service::withCount('features')->get()
+            : collect();
+
         $inquiries = DemoInquiry::orderBy('created_at', 'desc')->paginate(15);
 
-        return view('admin.dashboard.index', compact('services', 'useCases', 'inquiries'));
+        return view('admin.dashboard.index', compact('services', 'inquiries'));
     }
 
     /**
@@ -38,17 +42,28 @@ class DashboardController extends Controller
     public function storeService(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            'title'           => 'required|string|max:255',
-            'slug'            => 'required|string|max:255|unique:services,slug|alpha_dash',
-            'subtitle'        => 'nullable|string|max:255',
-            'intro_text'      => 'required|string',
-            'results_summary' => 'nullable|string|max:255',
-            'icon_class'      => 'required|string|max:100',
+            'title'                   => 'required|string|max:255',
+            'slug'                    => 'required|string|max:255|unique:services,slug|alpha_dash',
+            'headline'                => 'nullable|string|max:255',
+            'strapline'               => 'nullable|string|max:255',
+            'message'                 => 'required|string',
+            'results_summary'         => 'nullable|string|max:255',
+            'icon_class'              => 'required|string|max:100',
+            'solutions'               => 'nullable|array',
+            'solutions.*.title'       => 'required_with:solutions|string|max:255',
+            'solutions.*.description' => 'required_with:solutions|string|max:1000',
+            'call_to_action'          => 'nullable|string|max:255',
+            'closing_line'            => 'nullable|string|max:255',
         ]);
+
+        // Cleanly isolate solution array keys to ensure clean sequential indexing
+        if (isset($validated['solutions'])) {
+            $validated['solutions'] = array_values($validated['solutions']);
+        }
 
         $service = Service::create($validated);
 
-        return redirect()->route('admin.dashboard')->with('success', "New system engine node [{$service->title}] deployed successfully into active matrices.");
+        return redirect()->route('admin.dashboard')->with('success', "New service [{$service->title}] added successfully.");
     }
 
     /**
@@ -56,7 +71,7 @@ class DashboardController extends Controller
      */
     public function editService(Service $service): View
     {
-        $service->load(['features', 'useCases']);
+        $service->load(['features']);
 
         return view('admin.dashboard.services_edit', compact('service'));
     }
@@ -67,12 +82,22 @@ class DashboardController extends Controller
     public function updateService(Request $request, Service $service): RedirectResponse
     {
         $validated = $request->validate([
-            'title'           => 'required|string|max:255',
-            'subtitle'        => 'nullable|string|max:255',
-            'intro_text'      => 'required|string',
-            'results_summary' => 'nullable|string|max:255',
-            'icon_class'      => 'required|string|max:100',
+            'title'                   => 'required|string|max:255',
+            'slug'                    => "required|string|max:255|alpha_dash|unique:services,slug,{$service->id}",
+            'headline'                => 'nullable|string|max:255',
+            'strapline'               => 'nullable|string|max:255',
+            'message'                 => 'required|string',
+            'results_summary'         => 'nullable|string|max:255',
+            'icon_class'              => 'required|string|max:100',
+            'solutions'               => 'nullable|array',
+            'solutions.*.title'       => 'required_with:solutions|string|max:255',
+            'solutions.*.description' => 'required_with:solutions|string|max:1000',
+            'call_to_action'          => 'nullable|string|max:255',
+            'closing_line'            => 'nullable|string|max:255',
         ]);
+
+        // Normalize indices on incoming array to satisfy structured JSON formatting parameters
+        $validated['solutions'] = isset($validated['solutions']) ? array_values($validated['solutions']) : [];
 
         $service->update($validated);
 
@@ -85,11 +110,18 @@ class DashboardController extends Controller
     public function storeFeature(Request $request, Service $service): RedirectResponse
     {
         $validated = $request->validate([
-            'title'       => 'required|string|max:255',
-            'description' => 'required|string|max:1000',
-            'icon_class'  => 'nullable|string|max:100',
-            'sort_order'  => 'required|integer',
+            'title'      => 'required|string|max:255',
+            'icon_class' => 'required|string|max:100',
+            'sort_order' => 'required|integer',
+            'content'    => 'required|array|min:1',
+            'content.*'  => 'required|string|max:1000',
         ]);
+
+        // Force item inputs into a strictly flat, sequential list to prevent array_is_list failures
+        $validated['content'] = array_values($validated['content']);
+
+        // Explicitly pass service_slug downstream if database layer bypasses ID mapping
+        $validated['service_slug'] = $service->slug;
 
         $service->features()->create($validated);
 
