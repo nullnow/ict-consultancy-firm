@@ -23,9 +23,9 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::group(['prefix' => 'services', 'as' => 'services.'], function () {
     Route::get('/', [PageController::class, 'services'])->name('index');
 
-    // Compile explicit routes dynamically from the database
-    if (Schema::hasTable('services')) {
-        try {
+    try {
+        // Compile explicit routes dynamically from the database
+        if (Schema::hasTable('services')) {
             $slugs = Service::pluck('slug');
 
             foreach ($slugs as $slug) {
@@ -33,13 +33,13 @@ Route::group(['prefix' => 'services', 'as' => 'services.'], function () {
                     ->defaults('slug', $slug)
                     ->name($slug);
             }
-        } catch (\Throwable $e) {
-            // Log the failure reason (e.g., connection timeouts, missing 'slug' column during migrations)
-            Log::warning('Dynamic service route compilation bypassed: ' . $e->getMessage());
-
-            // Deploy a runtime wildcard safety net so URLs still resolve if the DB recovers post-boot
-            Route::get('/{slug}', [PageController::class, 'showService'])->name('catch_all_fallback');
         }
+    } catch (\Throwable $e) {
+        // Log the failure reason (e.g., connection timeouts, missing 'slug' column during migrations)
+        Log::warning('Dynamic service route compilation bypassed: ' . $e->getMessage());
+
+        // Deploy a runtime wildcard safety net so URLs still resolve if the DB recovers post-boot
+        Route::get('/{slug}', [PageController::class, 'showService'])->name('catch_all_fallback');
     }
 });
 
