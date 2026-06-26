@@ -163,8 +163,8 @@
                 @if($dynamicServices->isNotEmpty())
                     <div class="mt-24 text-left border-t border-white/10 pt-16 space-y-10">
                         <div>
-                            <h2 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Additional Enterprise Deployments</h2>
-                            <p class="text-sm md:text-base text-opes-text-gray/70 font-light mt-1">Explore auxiliary bespoke models and dynamic systems operational within our ecosystem.</p>
+                            <h2 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Our Services</h2>
+                            <p class="text-sm md:text-base text-opes-text-gray/70 font-light mt-1">Explore our telematics, operational and communications ecosystem.</p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
