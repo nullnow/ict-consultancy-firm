@@ -67,10 +67,12 @@
     <header class="fixed top-0 left-0 w-full z-50 bg-white shadow-md transition-all duration-300 py-3 sm:py-4">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 flex justify-between items-center">
 
+            <!-- Logo Anchor -->
             <a href="{{ route('home') }}" class="flex flex-col items-center z-50">
-                <img src="{{ Vite::asset("resources/images/Opes-logo.png") }}" width="80" height="auto" />
+                <img src="{{ Vite::asset('resources/images/Opes-logo.png') }}" width="80" height="auto" alt="OPES Logo" />
             </a>
 
+            <!-- Desktop Navigation Matrix -->
             <nav class="hidden md:flex items-center gap-6 lg:gap-8">
                 <a href="{{ route('home') }}" class="font-heading font-bold text-md uppercase tracking-wider {{ Request::is('/') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">Home</a>
 
@@ -83,19 +85,32 @@
                             </svg>
                         </summary>
 
-                        <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50 py-1">
+                        <div class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50 py-1">
                             <a href="{{ route('services.index') }}" class="block px-4 py-2 font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
                                 Overview
                             </a>
-                            <a href="{{ route('services.show', 'telematics') }}" class="block px-4 py-2 font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services/telematics') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
-                                Telematics
-                            </a>
-                            <a href="{{ route('services.show', 'crm-erp') }}" class="block px-4 py-2 font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services/crm-erp') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
-                                CRM & ERP
-                            </a>
-                            <a href="{{ route('services.show', 'bulk-sms') }}" class="block px-4 py-2 font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services/bulk-sms') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
-                                Bulk SMS
-                            </a>
+
+                            <div class="border-t border-gray-100 my-1"></div>
+
+                            <!-- Dynamic Dropdown Population Strategy -->
+                            @if(isset($services) && $services->isNotEmpty())
+                                @foreach($services as $navSrv)
+                                    @if(Route::has('services.' . $navSrv->slug))
+                                        <a href="{{ route('services.' . $navSrv->slug) }}" class="block px-4 py-2 font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services/' . $navSrv->slug) ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
+                                            {{ $navSrv->title }}
+                                        </a>
+                                    @endif
+                                @endforeach
+                            @else
+                                <!-- Resilient Fallback to core nodes via explicitly generated route names -->
+                                @foreach(['telematics' => 'Telematics', 'bulk-sms-email' => 'Bulk SMS & Email', 'custom-crm' => 'Custom CRM', 'custom-erp' => 'Custom ERP'] as $slug => $label)
+                                    @if(Route::has('services.' . $slug))
+                                        <a href="{{ route('services.' . $slug) }}" class="block px-4 py-2 font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services/' . $slug) ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
+                                            {{ $label }}
+                                        </a>
+                                    @endif
+                                @endforeach
+                            @endif
                         </div>
                     </details>
                 </div>
@@ -103,6 +118,7 @@
                 <a href="{{ route('about') }}" class="font-heading font-bold text-md uppercase tracking-wider {{ Request::is('about') ? 'text-opes-orange' : 'text-opes-nav-blue hover:text-opes-nav-blue-hover' }}">About Us</a>
             </nav>
 
+            <!-- Mobile Trigger Utility Button -->
             <button id="menu-toggle" class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5 z-50 relative focus:outline-none" aria-label="Toggle Menu">
                 <span id="line-1" class="w-6 h-0.5 bg-opes-nav-blue transition-all duration-300 transform origin-center"></span>
                 <span id="line-2" class="w-6 h-0.5 bg-opes-nav-blue transition-all duration-300"></span>
@@ -110,37 +126,46 @@
             </button>
         </div>
 
+        <!-- Mobile Navigation Drawer -->
         <div id="mobile-menu" class="fixed inset-0 bg-white z-40 flex flex-col justify-center items-center transition-all duration-300 translate-x-full md:hidden">
             <nav class="flex flex-col items-center gap-6 text-center px-6 w-full max-h-[75vh] overflow-y-auto">
                 <a href="{{ route('home') }}" class="font-heading font-bold text-base uppercase tracking-wider {{ Request::is('/') ? 'text-opes-orange' : 'text-opes-nav-blue' }}">Home</a>
-                <div class="relative inline-block text-left">
-                <details class="group [&_summary::-webkit-details-marker]:hidden">
-                    <!-- Dropdown Trigger -->
-                    <summary class="flex items-center gap-1 cursor-pointer font-heading font-bold text-base uppercase tracking-wider {{ Request::is('services*') ? 'text-opes-orange' : 'text-opes-nav-blue' }} list-none">
-                        <span>All Services</span>
-                        <!-- Down Arrow Icon -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </summary>
 
-                    <!-- Dropdown Menu Options -->
-                    <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50 py-1">
-                        <a href="{{ route('services.index') }}" class="block px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
-                            Overview
-                        </a>
-                        <a href="{{ route('services.show', 'telematics') }}" class="block px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services/telematics') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
-                            Telematics
-                        </a>
-                        <a href="{{ route('services.show', 'crm-erp') }}" class="block px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services/crm-erp') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
-                            CRM & ERP
-                        </a>
-                        <a href="{{ route('services.show', 'bulk-sms') }}" class="block px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services/bulk-sms') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
-                            Bulk SMS
-                        </a>
-                    </div>
-                </details>
-            </div>
+                <div class="w-full max-w-xs text-center">
+                    <details class="group [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex items-center justify-center gap-1 cursor-pointer font-heading font-bold text-base uppercase tracking-wider {{ Request::is('services*') ? 'text-opes-orange' : 'text-opes-nav-blue' }} list-none">
+                            <span>All Services</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </summary>
+
+                        <div class="mt-2 w-full rounded-md bg-gray-50 border border-gray-100 py-1 space-y-0.5 max-h-48 overflow-y-auto shadow-inner">
+                            <a href="{{ route('services.index') }}" class="block px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services') ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-200' }}">
+                                Overview
+                            </a>
+
+                            @if(isset($services) && $services->isNotEmpty())
+                                @foreach($services as $navSrv)
+                                    @if(Route::has('services.' . $navSrv->slug))
+                                        <a href="{{ route('services.' . $navSrv->slug) }}" class="block px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services/' . $navSrv->slug) ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-200' }}">
+                                            {{ $navSrv->title }}
+                                        </a>
+                                    @endif
+                                @endforeach
+                            @else
+                                @foreach(['telematics' => 'Telematics', 'bulk-sms-email' => 'Bulk SMS & Email', 'custom-crm' => 'Custom CRM', 'custom-erp' => 'Custom ERP'] as $slug => $label)
+                                    @if(Route::has('services.' . $slug))
+                                        <a href="{{ route('services.' . $slug) }}" class="block px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services/' . $slug) ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-200' }}">
+                                            {{ $label }}
+                                        </a>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </div>
+                    </details>
+                </div>
+
                 <a href="{{ route('about') }}" class="font-heading font-bold text-base uppercase tracking-wider {{ Request::is('about') ? 'text-opes-orange' : 'text-opes-nav-blue' }}">About Us</a>
             </nav>
         </div>
