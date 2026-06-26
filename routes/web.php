@@ -5,6 +5,9 @@ use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AuthWebController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Log;
+use App\Models\Service;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +22,25 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
 // Service Domain Structures
 Route::group(['prefix' => 'services', 'as' => 'services.'], function () {
     Route::get('/', [PageController::class, 'services'])->name('index');
-    Route::get('/{slug}', [PageController::class, 'showService'])->name('show');
+
+    // Compile explicit routes dynamically from the database
+    if (Schema::hasTable('services')) {
+        try {
+            $slugs = Service::pluck('slug');
+
+            foreach ($slugs as $slug) {
+                Route::get($slug, [PageController::class, 'showService'])
+                    ->defaults('slug', $slug)
+                    ->name($slug);
+            }
+        } catch (\Throwable $e) {
+            // Log the failure reason (e.g., connection timeouts, missing 'slug' column during migrations)
+            Log::warning('Dynamic service route compilation bypassed: ' . $e->getMessage());
+
+            // Deploy a runtime wildcard safety net so URLs still resolve if the DB recovers post-boot
+            Route::get('/{slug}', [PageController::class, 'showService'])->name('catch_all_fallback');
+        }
+    }
 });
 
 // Lead Generation Capture Inbound Pipeline

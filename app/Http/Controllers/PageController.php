@@ -57,7 +57,7 @@ class PageController extends Controller
     public function services(): View
     {
         $services = Service::all();
-        return view('public.services', compact('services'));
+        return view('public.services.overview', compact('services'));
     }
 
     /**
@@ -66,18 +66,13 @@ class PageController extends Controller
      */
     public function showService(string $slug): View
     {
-        $service = Service::with(['features', 'industries'])->where('slug', $slug)->firstOrFail();
+        // Fetch the structural dataset or throw a 404 if the slug doesn't exist
+        $service = Service::with(['features' => function ($query) {
+            $query->orderBy('sort_order', 'asc');
+        }])->where('slug', $slug)->firstOrFail();
 
-        // Dynamically pair specific styling presets if template variations are required
-        $viewMap = [
-            'telematics' => 'public.services.telematics',
-            'crm-erp'    => 'public.services.crm_erp',
-            'bulk-sms'   => 'public.services.bulk_sms',
-        ];
-
-        $view = $viewMap[$slug] ?? 'public.services.default_deep_dive';
-
-        return view($view, compact('service'));
+        // Force every response directly through the single master template layout
+        return view('public.services.page', compact('service'));
     }
 
     /**
