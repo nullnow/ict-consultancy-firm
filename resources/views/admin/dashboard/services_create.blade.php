@@ -115,7 +115,7 @@
 
             <div class="pt-4">
                 <button type="submit" class="w-full py-4 bg-gradient-to-r from-dash-accent-blue to-dash-accent-blue-light hover:opacity-90 text-white text-sm font-bold uppercase tracking-wider rounded transition-all shadow-md">
-                    Save Service Information Architecture
+                    Save Service Details
                 </button>
             </div>
         </form>
