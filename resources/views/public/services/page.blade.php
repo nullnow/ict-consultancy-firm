@@ -64,7 +64,7 @@
 
             <hr class="border-white/10">
 
-            @if(!empty($service->features))
+            @if(!empty($service->features) && collect($service->features)->contains(fn($feature) => !empty($feature->title)))
             <div class="space-y-6">
                 <div>
                     <h3 class="text-xs tracking-widest font-bold text-opes-cyan uppercase font-mono">Core Competencies</h3>
