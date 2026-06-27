@@ -55,7 +55,7 @@
         <div class="lg:col-span-12 space-y-16">
 
             <div class="space-y-4 max-w-4xl">
-                <h3 class="text-xs tracking-widest font-bold text-opes-cyan uppercase font-mono">01 // Architectural Focus</h3>
+                <h3 class="text-xs tracking-widest font-bold text-opes-cyan uppercase font-mono">Architectural Focus</h3>
                 <h2 class="text-2xl md:text-3xl text-white font-extrabold uppercase tracking-tight">Platform Infrastructure Framework</h2>
                 <div class="text-opes-text-gray text-base leading-relaxed space-y-6 whitespace-pre-line font-normal">
                     {{ $service->message }}
@@ -64,14 +64,15 @@
 
             <hr class="border-white/10">
 
+            @if(!empty($service->solutions))
             <div class="space-y-6">
                 <div>
-                    <h3 class="text-xs tracking-widest font-bold text-opes-cyan uppercase font-mono">02 // Core Competencies</h3>
+                    <h3 class="text-xs tracking-widest font-bold text-opes-cyan uppercase font-mono">Core Competencies</h3>
                     <h2 class="text-2xl md:text-3xl text-white font-extrabold uppercase tracking-tight">Service Feature Details</h2>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @forelse($service->features as $feature)
+                    @foreach($service->features as $feature)
                         <div class="group p-6 bg-opes-navy/20 hover:bg-opes-navy/50 border border-white/5 hover:border-opes-cyan/30 transition-all duration-300 rounded-xl flex gap-5 items-start">
                             <div class="w-10 h-10 rounded bg-opes-orange/10 border border-opes-orange/20 text-opes-orange group-hover:bg-opes-orange group-hover:text-white flex items-center justify-center font-bold text-xs font-mono shrink-0 transition-all duration-300">
                                 @if($feature->icon_class)
@@ -96,20 +97,17 @@
                                 @endif
                             </div>
                         </div>
-                    @empty
-                        <div class="col-span-3 p-8 bg-opes-darker border border-dashed border-white/10 rounded-xl text-center">
-                            <p class="text-xs text-opes-text-gray italic">Sub-system feature variations are currently compiling for this layout vector.</p>
-                        </div>
-                    @endforelse
+                    @endforeach
                 </div>
             </div>
+            @endif
 
             @if(!empty($service->solutions) && is_array($service->solutions))
                 <hr class="border-white/10">
 
                 <div class="space-y-6">
                     <div>
-                        <h3 class="text-xs tracking-widest font-bold text-opes-cyan uppercase font-mono">03 // Dynamic Solution Examples</h3>
+                        <h3 class="text-xs tracking-widest font-bold text-opes-cyan uppercase font-mono">Dynamic Solution Examples</h3>
                         <h2 class="text-2xl md:text-3xl text-white font-extrabold uppercase tracking-tight">Tailored Execution Strategies</h2>
                     </div>
 
