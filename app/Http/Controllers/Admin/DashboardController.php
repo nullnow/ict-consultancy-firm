@@ -125,7 +125,7 @@ class DashboardController extends Controller
 
         $service->features()->create($validated);
 
-        return redirect()->back()->with('success', 'Structural differentiator metric registered into active dataset.');
+        return redirect()->back()->with('success', 'Feature details stored successfully.');
     }
 
     /**

@@ -198,7 +198,7 @@
                                 </ul>
                             </div>
 
-                            <form action="{{ route('admin.features.destroy', $feat->id) }}" method="POST" onsubmit="return confirm('Confirm complete structural removal of this active feature element matrix?');">
+                            <form action="{{ route('admin.features.destroy', $feat->id) }}" method="POST" onsubmit="return confirm('Confirm complete removal of this active feature?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-500 hover:text-red-400 p-2 text-xs transition-colors">
