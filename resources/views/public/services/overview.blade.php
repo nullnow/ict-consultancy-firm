@@ -111,7 +111,7 @@
                             Faster response times and higher conversion — without adding headcount.
                         </div>
                         <div class="pt-4">
-                            <a href="{{ Route::has('services.crm-erp') ? route('services.custom-crm') : route('services.index') }}" class="btn btn-secondary w-full sm:w-auto text-xs py-3 px-6 uppercase font-bold tracking-wider">Further Information</a>
+                            <a href="{{ Route::has('services.crm-erp') ? route('services.crm-erp') : route('services.index') }}" class="btn btn-secondary w-full sm:w-auto text-xs py-3 px-6 uppercase font-bold tracking-wider">Further Information</a>
                         </div>
                     </div>
                 </div>
