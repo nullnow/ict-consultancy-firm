@@ -90,23 +90,13 @@
 
                             <div class="border-t border-gray-100 my-1"></div>
 
-                            @if(isset($services) && $services->isNotEmpty())
-                                @foreach($services as $navSrv)
-                                    @if(Route::has('services.' . $navSrv->slug))
-                                        <a href="{{ route('services.' . $navSrv->slug) }}" class="block px-4 py-2 font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services/' . $navSrv->slug) ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
-                                            {{ $navSrv->title }}
-                                        </a>
-                                    @endif
-                                @endforeach
-                            @else
-                                @foreach(['telematics' => 'Telematics', 'bulk-sms-email' => 'Bulk SMS & Email', 'custom-crm' => 'Custom CRM', 'custom-erp' => 'Custom ERP'] as $slug => $label)
-                                    @if(Route::has('services.' . $slug))
-                                        <a href="{{ route('services.' . $slug) }}" class="block px-4 py-2 font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services/' . $slug) ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
-                                            {{ $label }}
-                                        </a>
-                                    @endif
-                                @endforeach
-                            @endif
+                            @foreach(['telematics' => 'Telematics', 'bulk-sms-email' => 'Bulk SMS & Email', 'crm-erp' => 'CRM & ERP'] as $slug => $label)
+                                @if(Route::has('services.' . $slug))
+                                    <a href="{{ route('services.' . $slug) }}" class="block px-4 py-2 font-heading font-bold text-md uppercase tracking-wider {{ Request::is('services/' . $slug) ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-100' }}">
+                                        {{ $label }}
+                                    </a>
+                                @endif
+                            @endforeach
                         </div>
                     </details>
                 </div>
@@ -139,23 +129,13 @@
                                 Overview
                             </a>
 
-                            @if(isset($services) && $services->isNotEmpty())
-                                @foreach($services as $navSrv)
-                                    @if(Route::has('services.' . $navSrv->slug))
-                                        <a href="{{ route('services.' . $navSrv->slug) }}" class="block px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services/' . $navSrv->slug) ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-200' }}">
-                                            {{ $navSrv->title }}
-                                        </a>
-                                    @endif
-                                @endforeach
-                            @else
-                                @foreach(['telematics' => 'Telematics', 'bulk-sms-email' => 'Bulk SMS & Email', 'custom-crm' => 'Custom CRM', 'custom-erp' => 'Custom ERP'] as $slug => $label)
-                                    @if(Route::has('services.' . $slug))
-                                        <a href="{{ route('services.' . $slug) }}" class="block px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services/' . $slug) ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-200' }}">
-                                            {{ $label }}
-                                        </a>
-                                    @endif
-                                @endforeach
-                            @endif
+                            @foreach(['telematics' => 'Telematics', 'bulk-sms-email' => 'Bulk SMS & Email', 'crm-erp' => 'CRM & ERP'] as $slug => $label)
+                                @if(Route::has('services.' . $slug))
+                                    <a href="{{ route('services.' . $slug) }}" class="block px-4 py-2 font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services/' . $slug) ? 'text-opes-orange' : 'text-opes-nav-blue hover:bg-gray-200' }}">
+                                        {{ $label }}
+                                    </a>
+                                @endif
+                            @endforeach
                         </div>
                     </details>
                 </div>
