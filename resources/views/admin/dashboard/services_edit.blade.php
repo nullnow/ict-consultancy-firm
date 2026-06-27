@@ -175,7 +175,7 @@
 
                         <input type="hidden" name="submit_type" value="feature">
                         <button type="submit" class="w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold uppercase tracking-wider rounded transition-colors tracking-widest">
-                            Commit New Feature Details
+                            Save New Feature Details
                         </button>
                     </form>
                 </div>
