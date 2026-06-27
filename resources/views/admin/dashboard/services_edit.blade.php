@@ -118,7 +118,7 @@
                 </div>
 
                 <button type="submit" class="w-full py-4 bg-dash-accent-blue hover:bg-dash-accent-blue-light text-white text-sm font-bold uppercase tracking-wider rounded transition-colors shadow-md">
-                    Update Service Information Architecture
+                    Update Service Information Details
                 </button>
             </form>
         </div>
@@ -181,7 +181,7 @@
                 </div>
 
                 <div class="space-y-3">
-                    <h4 class="text-xs uppercase tracking-widest text-dash-muted font-bold">Existing Core Features Architecture</h4>
+                    <h4 class="text-xs uppercase tracking-widest text-dash-muted font-bold">Existing Core Features Details</h4>
                     @forelse($service->features->sortBy('sort_order') as $feat)
                         <div class="bg-dash-surface/50 p-4 rounded-lg flex justify-between items-start gap-4 border border-white/5">
                             <div class="space-y-2 pb-1">
