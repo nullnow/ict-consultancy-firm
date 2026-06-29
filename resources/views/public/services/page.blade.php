@@ -17,7 +17,7 @@
         <div class="lg:col-span-8 space-y-6">
             <div class="inline-flex items-center gap-3 px-4 py-1.5 bg-opes-orange/10 border border-opes-orange/20 rounded-full text-opes-orange text-xs font-bold uppercase tracking-wider">
                 <i class="{{ $service->icon_class ?? 'fa-solid fa-layer-group' }}"></i>
-                <span>Operational Sector Node</span>
+                <span>Service Page Information</span>
             </div>
 
             <div class="space-y-3">
