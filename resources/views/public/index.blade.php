@@ -30,37 +30,27 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                @forelse($differentiators as $item)
-                    <div class="bg-white/5 p-8 rounded-xl transition-all duration-300 hover:bg-opes-navy/30">
-                        <div class="icon-wrapper">
-                            <i class="{{ $item->icon_class ?? 'fa-solid fa-square-check' }}"></i>
-                        </div>
-                        <h3 class="text-lg font-bold mb-4 tracking-tight uppercase text-opes-text-main">{{ $item->title }}</h3>
-                        <p class="text-opes-text-gray text-sm leading-relaxed">{{ $item->description }}</p>
-                    </div>
-                @empty
-                    <!-- Fallback Content from Copy Deck (2026) -->
-                    <div class="bg-white/5 p-8 rounded-xl">
-                        <div class="icon-wrapper"><i class="fa-regular fa-clock"></i></div>
-                        <h3 class="text-lg font-bold mb-4 uppercase">In the field since 2014</h3>
-                        <p class="text-opes-text-gray text-sm">12+ years experience in solving real operating problems including fuel theft, vehicles used off the books, and reaching customers at scale.</p>
-                    </div>
-                    <div class="bg-white/5 p-8 rounded-xl">
-                        <div class="icon-wrapper"><i class="fa-solid fa-link"></i></div>
-                        <h3 class="text-lg font-bold mb-4 uppercase">One Ecosystem, Complete control</h3>
-                        <p class="text-opes-text-gray text-sm">Telematics and Bulk SMS share one data layer, so your teams never re-key the same information twice. CRM and ERP are being built onto the same backbone.</p>
-                    </div>
-                    <div class="bg-white/5 p-8 rounded-xl">
-                        <div class="icon-wrapper"><i class="fa-solid fa-earth-africa"></i></div>
-                        <h3 class="text-lg font-bold mb-4 uppercase">Made for local realities</h3>
-                        <p class="text-opes-text-gray text-sm">Compliance, connectivity, and conditions handled the way it works in Tanzania. LATRA and TCRA, PAYE/NSSF/WCF payroll rules, and support are native to the platform not bolted on afterwards.</p>
-                    </div>
-                    <div class="bg-white/5 p-8 rounded-xl">
-                        <div class="icon-wrapper"><i class="fa-solid fa-headset"></i></div>
-                        <h3 class="text-lg font-bold mb-4 uppercase">24/7 Local Support, Always Online</h3>
-                        <p class="text-opes-text-gray text-sm">Direct support from the OPES team in Dar es Salaam, Arusha, and Mwanza. Headquartered in Dar es Salaam, with coverage wherever you operate.</p>
-                    </div>
-                @endforelse
+                <!-- Fallback Content from Copy Deck (2026) -->
+                <div class="bg-white/5 p-8 rounded-xl">
+                    <div class="icon-wrapper"><i class="fa-regular fa-clock"></i></div>
+                    <h3 class="text-lg font-bold mb-4 uppercase">In the field since 2014</h3>
+                    <p class="text-opes-text-gray text-sm">12+ years experience in solving real operating problems including fuel theft, vehicles used off the books, and reaching customers at scale.</p>
+                </div>
+                <div class="bg-white/5 p-8 rounded-xl">
+                    <div class="icon-wrapper"><i class="fa-solid fa-link"></i></div>
+                    <h3 class="text-lg font-bold mb-4 uppercase">One Ecosystem, Complete control</h3>
+                    <p class="text-opes-text-gray text-sm">Telematics and Bulk SMS share one data layer, so your teams never re-key the same information twice. CRM and ERP are being built onto the same backbone.</p>
+                </div>
+                <div class="bg-white/5 p-8 rounded-xl">
+                    <div class="icon-wrapper"><i class="fa-solid fa-earth-africa"></i></div>
+                    <h3 class="text-lg font-bold mb-4 uppercase">Made for local realities</h3>
+                    <p class="text-opes-text-gray text-sm">Compliance, connectivity, and conditions handled the way it works in Tanzania. LATRA and TCRA, PAYE/NSSF/WCF payroll rules, and support are native to the platform not bolted on afterwards.</p>
+                </div>
+                <div class="bg-white/5 p-8 rounded-xl">
+                    <div class="icon-wrapper"><i class="fa-solid fa-headset"></i></div>
+                    <h3 class="text-lg font-bold mb-4 uppercase">24/7 Local Support, Always Online</h3>
+                    <p class="text-opes-text-gray text-sm">Direct support from the OPES team in Dar es Salaam, Arusha, and Mwanza. Headquartered in Dar es Salaam, with coverage wherever you operate.</p>
+                </div>
             </div>
 
             @include("partials.trusted-by")

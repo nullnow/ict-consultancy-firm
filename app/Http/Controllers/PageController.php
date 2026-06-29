@@ -28,11 +28,6 @@ class PageController extends Controller
             "resources/images/opes-clientele/anglo-Gold.png"
         ];
 
-        // Fetch "Why OPES" global features (ordered by sort_order)
-        $differentiators = Feature::orderBy('sort_order')
-            ->take(4)
-            ->get();
-
         // YouTube player ID input
         $extractedId = null;
         $youtubeLink = "https://youtu.be/mdnF9R-Bzpg?si=4kwSQKJj0QA1PnBg";
@@ -46,7 +41,7 @@ class PageController extends Controller
         // Generate a unique ID per instance so multiple players can live on the same page
         $uniquePlayerId = 'yt_player_' . Str::random(9);
 
-        return view('public.index', compact('differentiators'))
+        return view('public.index')
             ->with("clientele", $clientele)
             ->with("uniquePlayerId", $uniquePlayerId)
             ->with("youtubeLink", $youtubeLink)
