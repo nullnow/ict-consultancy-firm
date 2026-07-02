@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>@yield('title', 'OPES Technologies | Simplify Your Business')</title>
 
     @include("partials.favicons")
@@ -67,91 +67,88 @@
         }
     </style>
 </head>
-<body class="relative min-h-screen pt-20 sm:pt-24 overflow-x-hidden">
+<body class="relative min-h-screen pt-20 sm:pt-24 overflow-x-hidden w-full max-w-full">
 
     <!-- Interactive Ambient Light Mesh Background -->
     <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-opes-orange/[0.04] rounded-full filter blur-[120px] pointer-events-none -z-20 animate-pulse-slow"></div>
     <div class="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-opes-cyan/[0.04] rounded-full filter blur-[150px] pointer-events-none -z-20 animate-pulse-slow" style="animation-delay: 2s;"></div>
     <canvas id="particle-canvas" class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none opacity-40"></canvas>
 
-    <!-- Translucent Light Navigation Layer -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 py-2 transition-all duration-300">
+    <!-- Fully Integrated Simplified Navigation Bar -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-white border-b border-gray-200 py-3">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
 
-            <a href="{{ route('home') }}" class="flex flex-col items-center z-50 transition-transform duration-300 hover:scale-105">
-                <!-- Ensure your logo asset renders crisp contrast on a clean light layout -->
-                <img src="{{ Vite::asset('resources/images/Opes-logo.png') }}" width="85" height="auto" alt="OPES Logo" />
+            <!-- Logo -->
+            <a href="{{ route('home') }}" class="z-50 flex items-center">
+                <img src="{{ Vite::asset('resources/images/Opes-logo.png') }}" width="85" alt="OPES Logo" />
             </a>
 
-            <!-- Desktop Navigation Matrix -->
+            <!-- Desktop Menu Matrix -->
             <nav class="hidden md:flex items-center gap-8">
-                <a href="{{ route('home') }}" class="font-heading font-bold text-xs uppercase tracking-widest transition-colors duration-300 {{ Request::is('/') ? 'text-opes-orange' : 'text-slate-600 hover:text-slate-900' }}">Home</a>
+                <a href="{{ route('home') }}" class="font-bold text-xs uppercase text-gray-600 hover:text-black {{ Request::is('/') ? 'text-opes-orange' : '' }}">Home</a>
 
-                <div class="relative inline-block text-left group">
-                    <button class="flex items-center gap-1.5 cursor-pointer font-heading font-bold text-xs uppercase tracking-widest transition-colors duration-300 {{ Request::is('services*') ? 'text-opes-orange' : 'text-slate-600 group-hover:text-slate-900' }}">
+                <div class="relative group">
+                    <button class="flex items-center gap-1 font-bold text-xs uppercase text-gray-600 hover:text-black {{ Request::is('services*') ? 'text-opes-orange' : '' }}">
                         <span>Services</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 transition-transform duration-300 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
 
-                    <!-- Desktop Dropdown Card -->
-                    <div class="absolute left-0 mt-3 w-60 rounded-xl shadow-[0_10px_40px_rgba(15,23,42,0.08)] bg-white border border-slate-200/80 backdrop-blur-2xl opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 z-50 py-2">
-                        <a href="{{ route('services.index') }}" class="block px-5 py-3 font-heading font-bold text-xs uppercase tracking-wider {{ Request::is('services') ? 'text-opes-orange' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50' }}">
-                            Overview
-                        </a>
-                        <div class="border-t border-slate-100 my-1"></div>
+                    <!-- Desktop Dropdown -->
+                    <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-md hidden group-hover:block z-50 py-1">
+                        <a href="{{ route('services.index') }}" class="block px-4 py-2 text-xs font-bold uppercase text-gray-600 hover:bg-gray-50 {{ Request::is('services') ? 'text-opes-orange' : '' }}">Overview</a>
                         @foreach(['telematics' => 'Telematics', 'bulk-sms-email' => 'Bulk SMS & Email', 'crm-erp' => 'CRM & ERP'] as $slug => $label)
                             @if(Route::has('services.' . $slug))
-                                <a href="{{ route('services.' . $slug) }}" class="block px-5 py-3 font-heading font-bold text-xs uppercase tracking-wider {{ Request::is('services/' . $slug) ? 'text-opes-orange' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50' }}">
-                                    {{ $label }}
-                                </a>
+                                <a href="{{ route('services.' . $slug) }}" class="block px-4 py-2 text-xs font-bold uppercase text-gray-600 hover:bg-gray-50 {{ Request::is('services/' . $slug) ? 'text-opes-orange' : '' }}">{{ $label }}</a>
                             @endif
                         @endforeach
                     </div>
                 </div>
 
-                <a href="{{ route('about') }}" class="font-heading font-bold text-xs uppercase tracking-widest transition-colors duration-300 {{ Request::is('about') ? 'text-opes-orange' : 'text-slate-600 hover:text-slate-900' }}">About</a>
+                <a href="{{ route('about') }}" class="font-bold text-xs uppercase text-gray-600 hover:text-black {{ Request::is('about') ? 'text-opes-orange' : '' }}">About</a>
             </nav>
 
-            <!-- Kinetic Hamburger Toggle Button -->
-            <button id="menu-toggle" class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5 z-50 relative focus:outline-none" aria-label="Toggle Menu">
-                <span id="line-1" class="w-6 h-0.5 bg-slate-900 transition-all duration-300 transform origin-center"></span>
-                <span id="line-2" class="w-6 h-0.5 bg-slate-900 transition-all duration-300"></span>
-                <span id="line-3" class="w-6 h-0.5 bg-slate-900 transition-all duration-300 transform origin-center"></span>
+            <!-- Mobile Hamburger Toggle Button -->
+            <button id="menu-toggle" class="md:hidden z-50 p-2 focus:outline-none" aria-label="Toggle Menu">
+                <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path id="menu-path" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
             </button>
         </div>
 
-        <!-- Fullscreen Light Immersive Mobile Menu -->
-        <div id="mobile-menu" class="fixed inset-0 bg-white/98 backdrop-blur-2xl z-40 flex flex-col justify-center items-center transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) translate-x-full md:hidden">
-            <nav class="flex flex-col items-center gap-8 text-center px-6 w-full max-h-[80vh] overflow-y-auto">
-                <a href="{{ route('home') }}" class="font-heading font-black text-2xl uppercase tracking-widest {{ Request::is('/') ? 'text-opes-orange' : 'text-slate-800' }}">Home</a>
+        <!-- Bulletproof Fullscreen Mobile Menu Modal Overlay (Swaps from hidden to flex cleanly) -->
+        <div id="mobile-menu" class="fixed inset-0 h-screen w-full bg-white z-40 hidden flex-col justify-center items-center">
+            <nav class="flex flex-col items-center gap-8 text-center w-full px-6">
+                <a href="{{ route('home') }}" class="text-2xl font-black uppercase text-gray-800 {{ Request::is('/') ? 'text-opes-orange' : '' }}">Home</a>
 
-                <div class="w-full text-center max-w-xs mx-auto">
-                    <details class="group [&_summary::-webkit-details-marker]:hidden">
-                        <summary class="flex items-center justify-center gap-2 cursor-pointer font-heading font-black text-2xl uppercase tracking-widest {{ Request::is('services*') ? 'text-opes-orange' : 'text-slate-800' }} list-none">
+                <!-- Mobile Dropdown Accordion -->
+                <div class="w-full max-w-xs mx-auto">
+                    <details class="group">
+                        <summary class="flex items-center justify-center gap-2 cursor-pointer text-2xl font-black uppercase text-gray-800 list-none {{ Request::is('services*') ? 'text-opes-orange' : '' }}">
                             <span>Services</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 group-open:rotate-180 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform group-open:rotate-180 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                             </svg>
                         </summary>
-                        <div class="mt-4 flex flex-col gap-4 bg-slate-50 py-4 rounded-xl border border-slate-200/60 shadow-inner">
-                            <a href="{{ route('services.index') }}" class="font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services') ? 'text-opes-orange' : 'text-slate-600' }}">Overview</a>
+                        <div class="mt-4 flex flex-col gap-4 bg-gray-50 py-4 rounded-xl border border-gray-200">
+                            <a href="{{ route('services.index') }}" class="font-bold text-sm uppercase text-gray-600 {{ Request::is('services') ? 'text-opes-orange' : '' }}">Overview</a>
                             @foreach(['telematics' => 'Telematics', 'bulk-sms-email' => 'Bulk SMS & Email', 'crm-erp' => 'CRM & ERP'] as $slug => $label)
                                 @if(Route::has('services.' . $slug))
-                                    <a href="{{ route('services.' . $slug) }}" class="font-heading font-bold text-sm uppercase tracking-wider {{ Request::is('services/' . $slug) ? 'text-opes-orange' : 'text-slate-600' }}">{{ $label }}</a>
+                                    <a href="{{ route('services.' . $slug) }}" class="font-bold text-sm uppercase text-gray-600 {{ Request::is('services/' . $slug) ? 'text-opes-orange' : '' }}">{{ $label }}</a>
                                 @endif
                             @endforeach
                         </div>
                     </details>
                 </div>
 
-                <a href="{{ route('about') }}" class="font-heading font-black text-2xl uppercase tracking-widest {{ Request::is('about') ? 'text-opes-orange' : 'text-slate-800' }}">About</a>
+                <a href="{{ route('about') }}" class="text-2xl font-black uppercase text-gray-800 {{ Request::is('about') ? 'text-opes-orange' : '' }}">About</a>
             </nav>
         </div>
     </header>
 
-    <main class="w-full overflow-x-hidden">
+    <!-- Main Dynamic Content Region -->
+    <main class="w-full relative z-10">
         @yield('content')
     </main>
 
@@ -179,32 +176,35 @@
         </div>
     </div>
 
+    <!-- Master Controller Script Integration -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Navbar Toggle Strategy Action
             const menuToggle = document.getElementById('menu-toggle');
             const mobileMenu = document.getElementById('mobile-menu');
-            const line1 = document.getElementById('line-1');
-            const line2 = document.getElementById('line-2');
-            const line3 = document.getElementById('line-3');
+            const menuPath = document.getElementById('menu-path');
 
-            menuToggle.addEventListener('click', () => {
-                const isOpen = !mobileMenu.classList.contains('translate-x-full');
-                if (isOpen) {
-                    mobileMenu.classList.add('translate-x-full');
-                    line1.classList.remove('rotate-45', 'translate-y-2');
-                    line2.classList.remove('opacity-0');
-                    line3.classList.remove('-rotate-45', '-translate-y-2');
-                    document.body.classList.remove('overflow-hidden');
-                } else {
-                    mobileMenu.classList.remove('translate-x-full');
-                    line1.classList.add('rotate-45', 'translate-y-2');
-                    line2.classList.add('opacity-0');
-                    line3.classList.add('-rotate-45', '-translate-y-2');
-                    document.body.classList.add('overflow-hidden');
-                }
-            });
+            const hamburgerPath = "M4 6h16M4 12h16M4 18h16";
+            const closePath = "M6 18L18 6M6 6l12 12";
 
-            // Exit Intent Animation Controller
+            if (menuToggle && mobileMenu && menuPath) {
+                menuToggle.addEventListener('click', () => {
+                    const isHidden = mobileMenu.classList.contains('hidden');
+                    if (isHidden) {
+                        mobileMenu.classList.remove('hidden');
+                        mobileMenu.classList.add('flex');
+                        menuPath.setAttribute('d', closePath);
+                        document.body.classList.add('overflow-hidden');
+                    } else {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('flex');
+                        menuPath.setAttribute('d', hamburgerPath);
+                        document.body.classList.remove('overflow-hidden');
+                    }
+                });
+            }
+
+            // Exit Intent Controller
             const exitModal = document.getElementById('exit-intent-modal');
             const innerCard = exitModal?.querySelector('.glass-card');
             const closeExitModalBtn = document.getElementById('close-exit-modal');
