@@ -3,56 +3,68 @@
 @section('title', 'OPES Technologies | ICT Consultancy Firm')
 
 @section('content')
-    <!-- Hero Section -->
-    <section class="relative min-h-[85vh] flex items-center justify-center text-center py-20">
-        <div class="max-w-6xl mx-auto px-6">
-            <h1 class="text-5xl md:text-7xl font-extrabold uppercase tracking-tight mb-8 leading-tight">
-                Run all your operations<br>
-                <span class="text-gradient font-black">on one system.</span>
-            </h1>
-            <p class="text-xl md:text-2xl text-opes-text-main/80 font-light max-w-4xl mx-auto mb-12 leading-relaxed">
-                Reach every customer, and connect everything in between on a single integrated platform. Designed in Tanzania.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <a href="#contact-section" class="btn btn-primary w-full sm:w-auto">Book a Demo</a>
-                <a href="https://wa.me/255798888997" class="btn btn-secondary w-full sm:w-auto">Chat With Us</a>
-            </div>
-        </div>
-    </section>
+    @include("partials.hero")
 
-    <!-- What Sets Us Apart Section -->
-    <section class="py-24 bg-opes-darker">
+    <!-- Capabilities Matrix Section -->
+    <section class="py-32 bg-opes-darker/60 border-y border-white/[0.04] relative">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-4xl mx-auto mb-20">
-                <h2 class="text-3xl md:text-4xl leading-tight">
-                    Four things OPES Technologies does that <span class="text-opes-orange font-black">other software providers can't.</span>
-                </h2>
+
+            @if(request()->routeIs('home'))
+                <div class="flex flex-col md:flex-row gap-8 mt-10 mb-10 md:mt-16 md:mb-16 max-w-7xl mx-auto px-6">
+                    <div class="flex-1 bg-opes-dark/30 border border-white/[0.05] p-6 rounded-2xl backdrop-blur-md shadow-2xl transition-all duration-500 hover:border-white/10">
+                        <p class="text-opes-orange text-xs font-heading font-black uppercase tracking-widest mb-3">Architectural Advantages</p>
+                        <h2 class="text-3xl sm:text-5xl leading-[1.05]">
+                            Engineered metrics where legacy platforms <span class="text-white font-black underline decoration-opes-orange decoration-4 underline-offset-8">fall short.</span>
+                        </h2>
+                    </div>
+
+                    <div class="flex-1 bg-opes-dark/30 border border-white/[0.05] p-6 rounded-2xl backdrop-blur-md shadow-2xl transition-all duration-500 hover:border-white/10">
+                        <div class="overflow-hidden rounded-xl bg-black">
+                            @include("partials.youtube-player")
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 group/grid">
+                <!-- Card Item -->
+                <div class="glass-card group flex flex-col justify-between transition-all duration-500 hover:scale-[1.02]">
+                    <div>
+                        <div class="icon-wrapper"><i class="fa-regular fa-clock"></i></div>
+                        <h3 class="text-base font-heading font-black mb-3 tracking-wide text-white group-hover:text-opes-orange transition-colors duration-300">In the field since 2014</h3>
+                        <p class="text-opes-text-gray text-xs leading-relaxed">Over a decade tracking, securing, and scaling complex logistics layers, containing fuel loss loops, and executing high-volume cellular transmissions native to East Africa.</p>
+                    </div>
+                </div>
+
+                <!-- Card Item -->
+                <div class="glass-card group flex flex-col justify-between transition-all duration-500 hover:scale-[1.02]">
+                    <div>
+                        <div class="icon-wrapper"><i class="fa-solid fa-link"></i></div>
+                        <h3 class="text-base font-heading font-black mb-3 tracking-wide text-white group-hover:text-opes-orange transition-colors duration-300">Unified Data Engine</h3>
+                        <p class="text-opes-text-gray text-xs leading-relaxed">Telematics architecture and high-velocity messaging sit seamlessly on a singular operational stack. Zero double-keying or detached sync layers.</p>
+                    </div>
+                </div>
+
+                <!-- Card Item -->
+                <div class="glass-card group flex flex-col justify-between transition-all duration-500 hover:scale-[1.02]">
+                    <div>
+                        <div class="icon-wrapper"><i class="fa-solid fa-earth-africa"></i></div>
+                        <h3 class="text-base font-heading font-black mb-3 tracking-wide text-white group-hover:text-opes-orange transition-colors duration-300">Hyper-Local Compliance</h3>
+                        <p class="text-opes-text-gray text-xs leading-relaxed">Built inline with native systems parameters. Direct matching workflows for LATRA, TCRA telemetry rules, and localized PAYE / TRA tax rules.</p>
+                    </div>
+                </div>
+
+                <!-- Card Item -->
+                <div class="glass-card group flex flex-col justify-between transition-all duration-500 hover:scale-[1.02]">
+                    <div>
+                        <div class="icon-wrapper"><i class="fa-solid fa-headset"></i></div>
+                        <h3 class="text-base font-heading font-black mb-3 tracking-wide text-white group-hover:text-opes-orange transition-colors duration-300">24/7 Field Engineering</h3>
+                        <p class="text-opes-text-gray text-xs leading-relaxed">On-premise support nodes anchored directly inside major trade hubs—Dar es Salaam, Arusha, and Mwanza. Instant physical and network failover support.</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Fallback Content from Copy Deck (2026) -->
-                <div class="bg-white/5 p-8 rounded-xl">
-                    <div class="icon-wrapper"><i class="fa-regular fa-clock"></i></div>
-                    <h3 class="text-lg font-bold mb-4 uppercase">In the field since 2014</h3>
-                    <p class="text-opes-text-gray text-sm">12+ years experience in solving real operating problems including fuel theft, vehicles used off the books, and reaching customers at scale.</p>
-                </div>
-                <div class="bg-white/5 p-8 rounded-xl">
-                    <div class="icon-wrapper"><i class="fa-solid fa-link"></i></div>
-                    <h3 class="text-lg font-bold mb-4 uppercase">One Ecosystem, Complete control</h3>
-                    <p class="text-opes-text-gray text-sm">Telematics and Bulk SMS share one data layer, so your teams never re-key the same information twice. CRM and ERP are being built onto the same backbone.</p>
-                </div>
-                <div class="bg-white/5 p-8 rounded-xl">
-                    <div class="icon-wrapper"><i class="fa-solid fa-earth-africa"></i></div>
-                    <h3 class="text-lg font-bold mb-4 uppercase">Made for local realities</h3>
-                    <p class="text-opes-text-gray text-sm">Compliance, connectivity, and conditions handled the way it works in Tanzania. LATRA and TCRA, PAYE/NSSF/WCF payroll rules, and support are native to the platform not bolted on afterwards.</p>
-                </div>
-                <div class="bg-white/5 p-8 rounded-xl">
-                    <div class="icon-wrapper"><i class="fa-solid fa-headset"></i></div>
-                    <h3 class="text-lg font-bold mb-4 uppercase">24/7 Local Support, Always Online</h3>
-                    <p class="text-opes-text-gray text-sm">Direct support from the OPES team in Dar es Salaam, Arusha, and Mwanza. Headquartered in Dar es Salaam, with coverage wherever you operate.</p>
-                </div>
-            </div>
-
+            <!-- Client Logotype Marquee Module -->
             @include("partials.trusted-by")
         </div>
     </section>
