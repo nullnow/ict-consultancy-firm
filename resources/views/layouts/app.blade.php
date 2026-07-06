@@ -64,26 +64,32 @@
                 -webkit-background-clip: text;
                 @apply text-transparent bg-clip-text;
             }
+
+            /* Disable hardware default cursor for desktop layouts */
+            @media (min-width: 768px) {
+                html, body, a, button, summary, input, select, textarea {
+                    cursor: none !important;
+                }
+            }
         }
     </style>
 </head>
 <body class="relative min-h-screen pt-20 sm:pt-24 overflow-x-hidden w-full max-w-full">
 
-    <!-- Interactive Ambient Light Mesh Background -->
+    <div id="custom-dot" class="fixed top-0 left-0 w-2 h-2 bg-opes-orange rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 hidden md:block"></div>
+    <div id="custom-ring" class="fixed top-0 left-0 w-7 h-7 border-2 border-opes-cyan/70 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 hidden md:block will-change-transform transition-all duration-75 ease-out"></div>
+
     <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-opes-orange/[0.04] rounded-full filter blur-[120px] pointer-events-none -z-20 animate-pulse-slow"></div>
     <div class="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-opes-cyan/[0.04] rounded-full filter blur-[150px] pointer-events-none -z-20 animate-pulse-slow" style="animation-delay: 2s;"></div>
     <canvas id="particle-canvas" class="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none opacity-40"></canvas>
 
-    <!-- Fully Integrated Simplified Navigation Bar -->
     <header class="fixed top-0 left-0 w-full z-50 bg-white border-b border-gray-200 py-3">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
 
-            <!-- Logo -->
             <a href="{{ route('home') }}" class="z-50 flex items-center">
                 <img src="{{ Vite::asset('resources/images/Opes-logo.png') }}" width="85" alt="OPES Logo" />
             </a>
 
-            <!-- Desktop Menu Matrix -->
             <nav class="hidden md:flex items-center gap-8">
                 <a href="{{ route('home') }}" class="font-bold text-xs uppercase text-gray-600 hover:text-black {{ Request::is('/') ? 'text-opes-orange' : '' }}">Home</a>
 
@@ -95,7 +101,6 @@
                         </svg>
                     </button>
 
-                    <!-- Desktop Dropdown -->
                     <div class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-md hidden group-hover:block z-50 py-1">
                         <a href="{{ route('services.index') }}" class="block px-4 py-2 text-xs font-bold uppercase text-gray-600 hover:bg-gray-50 {{ Request::is('services') ? 'text-opes-orange' : '' }}">Overview</a>
                         @foreach(['telematics' => 'Telematics', 'bulk-sms-email' => 'Bulk SMS & Email', 'crm-erp' => 'CRM & ERP'] as $slug => $label)
@@ -109,7 +114,6 @@
                 <a href="{{ route('about') }}" class="font-bold text-xs uppercase text-gray-600 hover:text-black {{ Request::is('about') ? 'text-opes-orange' : '' }}">About</a>
             </nav>
 
-            <!-- Mobile Hamburger Toggle Button -->
             <button id="menu-toggle" class="md:hidden z-50 p-2 focus:outline-none" aria-label="Toggle Menu">
                 <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path id="menu-path" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -117,12 +121,10 @@
             </button>
         </div>
 
-        <!-- Bulletproof Fullscreen Mobile Menu Modal Overlay (Swaps from hidden to flex cleanly) -->
         <div id="mobile-menu" class="fixed inset-0 h-screen w-full bg-white z-40 hidden flex-col justify-center items-center">
             <nav class="flex flex-col items-center gap-8 text-center w-full px-6">
                 <a href="{{ route('home') }}" class="text-2xl font-black uppercase text-gray-800 {{ Request::is('/') ? 'text-opes-orange' : '' }}">Home</a>
 
-                <!-- Mobile Dropdown Accordion -->
                 <div class="w-full max-w-xs mx-auto">
                     <details class="group">
                         <summary class="flex items-center justify-center gap-2 cursor-pointer text-2xl font-black uppercase text-gray-800 list-none {{ Request::is('services*') ? 'text-opes-orange' : '' }}">
@@ -147,14 +149,12 @@
         </div>
     </header>
 
-    <!-- Main Dynamic Content Region -->
     <main class="w-full relative z-10">
         @yield('content')
     </main>
 
     @include('partials.footer')
 
-    <!-- Premium Exit Intent Glass Overlay -->
     <div id="exit-intent-modal" class="hidden fixed inset-0 z-[100] bg-black/80 backdrop-blur-xl flex items-center justify-center p-4 opacity-0 transition-opacity duration-500">
         <div class="glass-card max-w-md w-full relative border border-opes-orange/20 shadow-2xl text-center flex flex-col items-center transform scale-95 transition-transform duration-500">
             <button id="close-exit-modal" class="absolute top-5 right-5 text-opes-text-gray hover:text-white transition-colors duration-200" aria-label="Close Modal">
@@ -176,7 +176,6 @@
         </div>
     </div>
 
-    <!-- Master Controller Script Integration -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Navbar Toggle Strategy Action
@@ -237,6 +236,64 @@
                 if (closeExitModalBtn) closeExitModalBtn.addEventListener('click', hideModal);
                 exitModal.addEventListener('click', (e) => { if (e.target === exitModal) hideModal(); });
                 if (exitCta) exitCta.addEventListener('click', hideModal);
+            }
+
+            // Universal Custom Motion Cursor Matrix
+            const dot = document.getElementById('custom-dot');
+            const ring = document.getElementById('custom-ring');
+
+            if (dot && ring && window.innerWidth >= 768) {
+                let ringX = 0, ringY = 0;
+                let mouseX = 0, mouseY = 0;
+
+                // Track immediate coordinates across viewport tracking
+                window.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+
+                    dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+                });
+
+                // Linear interpolation logic for smooth, trailing ring physics
+                const renderCursorPhysics = () => {
+                    ringX += (mouseX - ringX) * 0.15;
+                    ringY += (mouseY - ringY) * 0.15;
+
+                    ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+                    requestAnimationFrame(renderCursorPhysics);
+                };
+                requestAnimationFrame(renderCursorPhysics);
+
+                // Setup interactive structural expansion triggers (Buttons, Links, Dropdowns)
+                const interactiveSelectors = 'a, button, summary, input, select, textarea, .btn, [role="button"]';
+
+                const addHoverEffects = () => {
+                    document.querySelectorAll(interactiveSelectors).forEach(element => {
+                        // Check if listener tags are missing to prevent stacking
+                        if (!element.dataset.cursorBound) {
+                            element.dataset.cursorBound = "true";
+
+                            element.addEventListener('mouseenter', () => {
+                                ring.classList.remove('w-7', 'h-7', 'border-opes-cyan/70');
+                                ring.classList.add('w-12', 'h-12', 'border-opes-orange', 'bg-opes-orange/10');
+                                dot.classList.add('scale-75', 'bg-opes-cyan');
+                            });
+
+                            element.addEventListener('mouseleave', () => {
+                                ring.classList.add('w-7', 'h-7', 'border-opes-cyan/70');
+                                ring.classList.remove('w-12', 'h-12', 'border-opes-orange', 'bg-opes-orange/10');
+                                dot.classList.remove('scale-75', 'bg-opes-cyan');
+                            });
+                        }
+                    });
+                };
+
+                // Run init configuration
+                addHoverEffects();
+
+                // Dynamic Observer to handle dynamic content loads seamlessly
+                const observer = new MutationObserver(addHoverEffects);
+                observer.observe(document.body, { childList: true, subtree: true });
             }
         });
     </script>
