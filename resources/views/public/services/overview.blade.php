@@ -6,7 +6,7 @@
     <section class="py-20">
         <div class="max-w-7xl mx-auto px-6 text-center">
             <!-- Banner Section with Background Image -->
-            <section class="relative bg-cover bg-center bg-no-repeat py-20 md:py-32 mb-20" style="background-image: url('{{ Vite::asset("resources/images/banners/opes-services.png") }}');">
+            <section class="relative bg-cover bg-center bg-no-repeat py-20 md:py-32 mb-20 h-20" style="background-image: url('{{ Vite::asset("resources/images/banners/opes-services.png") }}');">
                 <!-- Optional Overlay for better text readability -->
                 <div class="absolute inset-0 bg-black/40"></div>
 
