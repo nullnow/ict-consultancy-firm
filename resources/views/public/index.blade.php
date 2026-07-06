@@ -12,8 +12,8 @@
             @if(request()->routeIs('home'))
                 <div class="flex flex-col md:flex-row gap-8 mt-10 mb-10 md:mt-16 md:mb-16 max-w-7xl mx-auto px-6">
                     <div class="flex-1 bg-opes-dark/30 border border-white/[0.05] p-6 rounded-2xl backdrop-blur-md shadow-2xl transition-all duration-500 hover:border-white/10">
-                        <p class="text-opes-orange text-xs font-heading font-black uppercase tracking-widest mb-3">Architectural Advantages</p>
-                        <h2 class="text-3xl sm:text-5xl leading-[1.05]">
+                        <p class="text-opes-orange text-xs font-heading font-black uppercase tracking-widest mb-3">Why OPES</p>
+                        <h2 class="text-3xl sm:text-5xl capitalize leading-[1.05]">
                             Engineered metrics where legacy platforms <span class="text-white font-black underline decoration-opes-orange decoration-4 underline-offset-8">fall short.</span>
                         </h2>
                     </div>
