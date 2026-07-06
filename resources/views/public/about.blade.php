@@ -5,13 +5,26 @@
 @section('content')
     <section class="py-16">
         <div class="max-w-7xl mx-auto px-6">
-            <!-- Hero / Mission Section -->
-            <div class="max-w-4xl mb-16">
-                <h1 class="text-4xl md:text-6xl font-black mb-4">Building for Tanzania.<br><span class="text-gradient font-black">Growing Together.</span></h1>
-                <p class="text-xl text-opes-text-main/80 font-light mt-4">
-                    OPES exists to simplify your business—building smart, scalable systems that ease operations and accelerate digital growth for Tanzanian enterprises.
-                </p>
-            </div>
+            <!-- About Banner Section with Background Image -->
+            <section class="relative bg-cover bg-center bg-no-repeat py-20 md:py-32 mb-20 h-20" style="background-image: url('{{ Vite::asset("resources/images/banners/opes-about.png") }}');">
+                <!-- Overlay to keep text perfectly readable -->
+                <div class="absolute inset-0 bg-black/40"></div>
+
+                <!-- Content Container -->
+                <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+                    <div class="max-w-4xl mb-16">
+                        <h1 class="text-4xl md:text-6xl font-black mb-4">
+                            Building for Tanzania.<br>
+                            <span class="text-gradient font-black">Growing Together.</span>
+                        </h1>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Introductory Text -->
+            <p class="text-xl text-opes-text-main/80 font-light my-4">
+                OPES exists to simplify your business—building smart, scalable systems that ease operations and accelerate digital growth for Tanzanian enterprises.
+            </p>
 
             <!-- Origin Story & Stats -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-24">
