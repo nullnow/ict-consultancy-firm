@@ -50,9 +50,7 @@
 
 <section id="hero-section" class="relative min-h-[95vh] flex items-center justify-center text-center py-24 px-6 overflow-hidden bg-cover bg-center" style="background-image: url('{{ Vite::asset("resources/images/banners/opes-home.png") }}');">
 
-    <div class="absolute inset-0 bg-gradient-to-br from-[#03040b]/95 via-[#090a15]/85 to-[#03040b]/95 z-0"></div>
-
-    <canvas id="laser-canvas" class="absolute inset-0 z-10 pointer-events-none opacity-70"></canvas>
+    <div class="absolute inset-0 bg-gradient-to-br from-[#03040b]/55 via-[#090a15]/65 to-[#03040b]/55 z-0"></div>
 
     <div class="max-w-5xl mx-auto relative z-20 space-y-8 balance-text">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-md mb-4 transform transition-all duration-500 hover:border-[#ea4a2b]/50 hover:bg-white/[0.06] cursor-pointer group">
@@ -69,7 +67,7 @@
             </span>
         </h3>
 
-        <p class="text-base sm:text-lg md:text-xl text-[#94a3b8] font-body font-normal max-w-3xl mx-auto leading-relaxed drop-shadow-sm">
+        <p class="text-base sm:text-lg md:text-xl text-[#f8fafc] font-body font-normal max-w-3xl mx-auto leading-relaxed drop-shadow-sm">
             Reach every customer, and connect everything in between on a single integrated platform.
             <span class="block mt-2 font-medium text-[#06b6d4]">Designed in Tanzania.</span>
         </p>
@@ -89,94 +87,3 @@
 
     <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff01_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_60%,transparent_100%)] pointer-events-none z-10"></div>
 </section>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const hero = document.getElementById('hero-section');
-        const canvas = document.getElementById('laser-canvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = hero.offsetWidth;
-            canvas.height = hero.offsetHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        // Define system theme colors explicitly for the lasers
-        const laserColors = ['#ea4a2b', '#06b6d4'];
-        const lasers = [];
-        const maxLasers = 8;
-
-        class LaserBeam {
-            constructor() {
-                this.reset();
-                this.y = Math.random() * canvas.height;
-                this.progress = Math.random();
-            }
-
-            reset() {
-                this.type = Math.random() > 0.5 ? 'horizontal' : 'angled';
-                this.color = laserColors[Math.floor(Math.random() * laserColors.length)];
-                this.speed = 0.003 + Math.random() * 0.004;
-                this.progress = 0;
-                this.width = 1 + Math.random() * 2;
-                this.y = Math.random() * canvas.height;
-                this.angleOffset = (Math.random() - 0.5) * 150;
-            }
-
-            update() {
-                this.progress += this.speed;
-                if (this.progress > 1) {
-                    this.reset();
-                }
-            }
-
-            draw() {
-                let alpha = Math.sin(this.progress * Math.PI) * 0.4;
-
-                ctx.save();
-                ctx.globalAlpha = alpha;
-                ctx.lineWidth = this.width;
-
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = this.color;
-                ctx.strokeStyle = this.color;
-
-                ctx.beginPath();
-                if (this.type === 'horizontal') {
-                    ctx.moveTo(0, this.y);
-                    ctx.lineTo(canvas.width, this.y);
-                } else {
-                    ctx.moveTo(0, this.y - this.angleOffset);
-                    ctx.lineTo(canvas.width, this.y + this.angleOffset);
-                }
-                ctx.stroke();
-                ctx.restore();
-            }
-        }
-
-        for (let i = 0; i < maxLasers; i++) {
-            lasers.push(new LaserBeam());
-        }
-
-        let targetX = 0;
-        hero.addEventListener('mousemove', (e) => {
-            const rect = hero.getBoundingClientRect();
-            targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 30;
-        });
-
-        function render() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            lasers.forEach(laser => {
-                laser.update();
-                laser.y += (targetX * 0.02);
-                laser.draw();
-            });
-
-            requestAnimationFrame(render);
-        }
-        render();
-    });
-</script>
