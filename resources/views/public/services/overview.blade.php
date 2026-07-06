@@ -5,11 +5,20 @@
 @section('content')
     <section class="py-20">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <!-- Main Title & Updated Intro -->
-            <h1 class="text-4xl md:text-6xl font-black mb-6">Connected Solutions</h1>
-            <p class="text-xl md:text-2xl text-opes-text-main/80 font-light max-w-4xl mx-auto mb-16">
-                One partner. Four systems. Every part of your business, connected.
-            </p>
+            <!-- Banner Section with Background Image -->
+            <section class="relative bg-cover bg-center bg-no-repeat py-20 md:py-32 mb-20" style="background-image: url('{{ Vite::asset("resources/images/banners/opes-services.png") }}');">
+                <!-- Optional Overlay for better text readability -->
+                <div class="absolute inset-0 bg-black/40"></div>
+
+                <!-- Content Container -->
+                <div class="relative z-10 text-center text-white px-4">
+                    <!-- Main Title & Updated Intro -->
+                    <h1 class="text-4xl md:text-6xl font-black mb-6">Connected Solutions</h1>
+                    <p class="text-xl md:text-2xl text-opes-text-main/80 font-light max-w-4xl mx-auto mb-16">
+                        One partner. Four systems. Every part of your business, connected.
+                    </p>
+                </div>
+            </section>
 
             <!-- 2-Column Grid for the 4 Static Core Systems -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
