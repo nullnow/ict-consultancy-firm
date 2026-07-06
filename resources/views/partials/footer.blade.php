@@ -22,36 +22,36 @@
         <div class="mb-24">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-white/[0.05] pb-6 mb-8 gap-4">
                 <div>
-                    <h3 class="text-sm font-heading font-black uppercase tracking-wider text-white">System Architecture Documentations</h3>
-                    <p class="text-xs text-opes-text-gray mt-1">Download native architectural deployment frameworks and infrastructure vectors.</p>
+                    <h3 class="text-sm font-heading font-black uppercase tracking-wider text-white">Company Brochures</h3>
+                    <p class="text-xs text-opes-text-gray mt-1">Download strategic documents highlighting core service components.</p>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <!-- Brochure Item -->
-                <a href="{{ Vite::asset('resources/brochures/Custom-CRM-&-ERP-Solutions.pdf') }}" target="_blank" class="group flex items-center gap-4 p-5 bg-opes-dark/30 hover:bg-opes-dark/60 border border-white/[0.05] hover:border-opes-cyan/30 rounded-2xl transition-all duration-500">
+                <!-- Brochure Item: CRM & ERP -->
+                <a href="{{ Vite::asset('resources/brochures/OPES_CRM&ERP.pdf') }}" target="_blank" class="group flex items-center gap-4 p-5 bg-opes-dark/30 hover:bg-opes-dark/60 border border-white/[0.05] hover:border-opes-cyan/30 rounded-2xl transition-all duration-500">
                     <div class="w-12 h-12 rounded-xl bg-opes-cyan/5 border border-opes-cyan/10 group-hover:border-opes-cyan/40 text-opes-cyan flex items-center justify-center text-xl transition-all duration-500 group-hover:scale-105">
                         <i class="fa-solid fa-file-invoice"></i>
                     </div>
                     <div class="min-w-0">
                         <p class="text-[9px] text-opes-text-gray uppercase tracking-widest font-black">Architecture Blueprint</p>
-                        <p class="text-sm font-bold text-white group-hover:text-opes-cyan transition-colors truncate mt-0.5">Custom CRM & ERP Engines</p>
+                        <p class="text-sm font-bold text-white group-hover:text-opes-cyan transition-colors truncate mt-0.5">Custom CRM & ERP Systems</p>
                     </div>
                 </a>
 
-                <!-- Brochure Item -->
-                <a href="{{ Vite::asset('resources/brochures/Customer-Engagement-·-Bulk-SMS,-Email-&-AI-Chatbot.pdf') }}" target="_blank" class="group flex items-center gap-4 p-5 bg-opes-dark/30 hover:bg-opes-dark/60 border border-white/[0.05] hover:border-opes-orange/30 rounded-2xl transition-all duration-500">
+                <!-- Brochure Item: Customer Engagement -->
+                <a href="{{ Vite::asset('resources/brochures/OPES_CUSTOMER_ENGAGEMENT.pdf') }}" target="_blank" class="group flex items-center gap-4 p-5 bg-opes-dark/30 hover:bg-opes-dark/60 border border-white/[0.05] hover:border-opes-orange/30 rounded-2xl transition-all duration-500">
                     <div class="w-12 h-12 rounded-xl bg-opes-orange/5 border border-opes-orange/10 group-hover:border-opes-orange/40 text-opes-orange flex items-center justify-center text-xl transition-all duration-500 group-hover:scale-105">
                         <i class="fa-solid fa-comments"></i>
                     </div>
                     <div class="min-w-0">
-                        <p class="text-[9px] text-opes-text-gray uppercase tracking-widest font-black">High-Throughput Comm Matrix</p>
+                        <p class="text-[9px] text-opes-text-gray uppercase tracking-widest font-black">High-Throughput Communications</p>
                         <p class="text-sm font-bold text-white group-hover:text-opes-orange transition-colors truncate mt-0.5">Enterprise Customer Engagement</p>
                     </div>
                 </a>
 
-                <!-- Brochure Item -->
-                <a href="{{ Vite::asset('resources/brochures/Telematics-&-Fleet-Management-Services.pdf') }}" target="_blank" class="group flex items-center gap-4 p-5 bg-opes-dark/30 hover:bg-opes-dark/60 border border-white/[0.05] hover:border-emerald-500/30 rounded-2xl transition-all duration-500">
+                <!-- Brochure Item: Telematics -->
+                <a href="{{ Vite::asset('resources/brochures/OPES_TELEMATICS.pdf') }}" target="_blank" class="group flex items-center gap-4 p-5 bg-opes-dark/30 hover:bg-opes-dark/60 border border-white/[0.05] hover:border-emerald-500/30 rounded-2xl transition-all duration-500">
                     <div class="w-12 h-12 rounded-xl bg-emerald-500/5 border border-emerald-500/10 group-hover:border-emerald-500/40 text-emerald-400 flex items-center justify-center text-xl transition-all duration-500 group-hover:scale-105">
                         <i class="fa-solid fa-satellite-dish"></i>
                     </div>
@@ -71,12 +71,12 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-[10px] uppercase tracking-widest text-opes-text-gray font-bold mb-2">Full Name</label>
-                            <input type="text" name="full_name" value="{{ old('full_name') }}" required class="w-full p-4 bg-white/[0.02] border border-white/[0.08] rounded-xl text-white text-sm transition-all duration-300 focus:outline-none focus:border-opes-orange focus:bg-opes-orange/[0.02] focus:ring-1 focus:ring-opes-orange/30">
+                            <input type="text" name="full_name" value="{{ old('full_name') }}" required class="w-full p-4 bg-white/[0.02] border border-white/[0.08] rounded-xl text-white text-sm transition-all duration-300 focus:outline-none focus:border-opes-orange focus:bg-opes-orange/[0.02] focus:ring-1 focus:ring-opes-orange/30" placeholder="Jamal Doe">
                             @error('full_name') <p class="text-opes-orange text-xs mt-1.5">{{ $message }}</p> @enderror
                         </div>
                         <div>
                             <label class="block text-[10px] uppercase tracking-widest text-opes-text-gray font-bold mb-2">Company Entity</label>
-                            <input type="text" name="company_name" value="{{ old('company_name') }}" required class="w-full p-4 bg-white/[0.02] border border-white/[0.08] rounded-xl text-white text-sm transition-all duration-300 focus:outline-none focus:border-opes-orange focus:bg-opes-orange/[0.02] focus:ring-1 focus:ring-opes-orange/30">
+                            <input type="text" name="company_name" value="{{ old('company_name') }}" required class="w-full p-4 bg-white/[0.02] border border-white/[0.08] rounded-xl text-white text-sm transition-all duration-300 focus:outline-none focus:border-opes-orange focus:bg-opes-orange/[0.02] focus:ring-1 focus:ring-opes-orange/30" placeholder="Business Enterprise">
                             @error('company_name') <p class="text-opes-orange text-xs mt-1.5">{{ $message }}</p> @enderror
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                         </div>
                         <div>
                             <label class="block text-[10px] uppercase tracking-widest text-opes-text-gray font-bold mb-2">Email Address</label>
-                            <input type="email" name="email" value="{{ old('email') }}" required class="w-full p-4 bg-white/[0.02] border border-white/[0.08] rounded-xl text-white text-sm transition-all duration-300 focus:outline-none focus:border-opes-orange focus:bg-opes-orange/[0.02] focus:ring-1 focus:ring-opes-orange/30">
+                            <input type="email" name="email" value="{{ old('email') }}" required class="w-full p-4 bg-white/[0.02] border border-white/[0.08] rounded-xl text-white text-sm transition-all duration-300 focus:outline-none focus:border-opes-orange focus:bg-opes-orange/[0.02] focus:ring-1 focus:ring-opes-orange/30" placeholder="jamal.doe@example.com">
                             @error('email') <p class="text-opes-orange text-xs mt-1.5">{{ $message }}</p> @enderror
                         </div>
                     </div>
@@ -117,7 +117,7 @@
 
                     <div>
                         <button type="submit" class="btn btn-primary w-full text-center mt-4">
-                            Initialize Deployment Request <i class="fa-solid fa-arrow-right-long ml-2 text-xs"></i>
+                            Submit Form <i class="fa-solid fa-arrow-right-long ml-2 text-xs"></i>
                         </button>
                     </div>
                 </form>
