@@ -149,8 +149,8 @@
         </div>
 
         <div class="border-t border-white/[0.05] mt-24 pt-8 text-center flex flex-col sm:flex-row justify-between text-[11px] text-opes-text-gray/40 font-medium tracking-wider">
-            <p>&copy; {{ date('Y') }} OPES TECHNOLOGIES. ALL RIGHTS RESERVED.</p>
-            <p class="mt-2 sm:mt-0">DESIGN PRINCIPLES COMPLIANT Matrix 2.6</p>
+            <p>OPES TECHNOLOGIES</p>
+            <p class="mt-2 sm:mt-0">ALL RIGHTS RESERVED &copy; {{ date('Y') }}</p>
         </div>
     </div>
 </footer>
